@@ -1,0 +1,29 @@
+﻿/* Site css */
+.main{ margin-top:20px;}
+
+/* Footer  */
+
+#push {
+	height: 40px;
+}
+
+#footer {
+	background: #134c7c;
+	border-top: 1px solid #c4c4c4;
+	bottom: 0;
+	clear: both;
+	color: #eee;
+	font-size: 11px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 16px;
+	text-align: center;
+	width: 100%;
+    position:fixed;
+}
+
+#footer a {
+	color: #fff;
+}
+
+/* Footer end*/
