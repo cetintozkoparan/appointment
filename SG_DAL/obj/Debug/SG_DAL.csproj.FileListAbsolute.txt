@@ -5,4 +5,3 @@ C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\obj\Debug\SG_DAL.pdb
 C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\bin\Debug\SG_DAL.dll.config
 C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\bin\Debug\EntityFramework.dll
 C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\bin\Debug\EntityFramework.xml
-C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\obj\Debug\SG_DAL.csprojResolveAssemblyReference.cache

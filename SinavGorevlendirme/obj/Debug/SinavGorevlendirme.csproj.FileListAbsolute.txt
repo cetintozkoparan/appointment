@@ -15,7 +15,6 @@ C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\System.Web.R
 C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\System.Web.WebPages.Deployment.dll
 C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\System.Web.WebPages.dll
 C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\System.Web.WebPages.Razor.dll
-C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\WebActivatorEx.dll
 C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\WebGrease.dll
 C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\EntityFramework.xml
 C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\Newtonsoft.Json.xml

@@ -15,11 +15,14 @@ namespace SG_DAL.Entities
 
         public string Soyad { get; set; }
 
-        public string TCKimlik { get; set; }
+        public Int64 TCKimlik { get; set; }
         
         public string Email { get; set; }
-        
+
         public string Sifre { get; set; }
+        
+        public bool IsAdmin { get; set; }
+
 
     }
 }

@@ -13,6 +13,10 @@ namespace SinavGorevlendirme
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("homepage_default", "yonetim", new { action = "Index", Controller = "Admin" });
+            routes.MapRoute("loginpage", "yonetim/login", new { action = "Login", Controller = "Admin" });
+            routes.MapRoute("homepage", "yonetim/anasayfa", new { action = "Index", Controller = "Admin" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

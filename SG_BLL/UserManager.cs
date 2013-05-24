@@ -35,7 +35,7 @@ namespace SG_BLL
                         return result;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     result = new Result("Kayıt sırasında hata oluştu", "error");
                     return result;

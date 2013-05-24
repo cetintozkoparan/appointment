@@ -30,6 +30,7 @@
                 <div class="tab-pane active" id="create">
                     @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "registerform" }))
                     {
+                        @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true)
                         <label>Ad</label>
                         @Html.TextBoxFor(m => m.Ad, null, new { @class = "input-xlarge validate[required] text-input" })
