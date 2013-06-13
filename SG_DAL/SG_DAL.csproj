@@ -46,14 +46,39 @@
   <ItemGroup>
     <Compile Include="Context\DatabaseCreatorClass.cs" />
     <Compile Include="Context\SGContext.cs" />
+    <Compile Include="Entities\Setting.cs" />
+    <Compile Include="Entities\SinavDurum.cs" />
+    <Compile Include="Entities\School.cs" />
+    <Compile Include="Entities\Sinav.cs" />
+    <Compile Include="Entities\SinavGorevli.cs" />
+    <Compile Include="Entities\SinavOturum.cs" />
+    <Compile Include="Entities\SinavOturumOkullari.cs" />
+    <Compile Include="Entities\Teacher.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Enums\EnumRol.cs" />
+    <Compile Include="Enums\EnumUnvan.cs" />
+    <Compile Include="Enums\EnumSinavGorev.cs" />
+    <Compile Include="Enums\EnumSinavDurum.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Pattern\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Wrappers\OgretmenGorevli.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Messages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>SystemRess</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

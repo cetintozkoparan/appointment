@@ -1,0 +1,297 @@
+﻿@model SinavGorevlendirme.Models.SinavGorevlendirmeWrapperModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+    $(function () {
+        $("table#gorevliliste").tablesorter({
+            theme: "bootstrap",
+            headers: {
+                0: { sorter: false },
+                6: { sorter: false }
+            },
+            widthFixed: true,
+            headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+            //widgets: ["uitheme", "filter", "zebra"],
+            widgets: ["uitheme", "zebra"],
+            widgetOptions: {
+                zebra: ["even", "odd"],
+                filter_reset: ".reset"
+            }
+        });
+
+        var sonSalonSayiDegeri = 0;
+
+        $('.salonsayi').keydown(function () {
+            sonSalonSayiDegeri = $(this).val();
+        });
+
+        $('.salonsayi').keyup(function () {
+            var okulId = $(this).attr("id").split('-')[1];
+            var gorevliSayisi = $(this).val() * '@(Model.setting.SalonPersonelSayisi)';
+
+            var topsal = 0;
+            $(".salonsayi").each(function () {
+                topsal = parseInt($(this).val()) + topsal;
+            });
+            var ogretmenSayisi = $('#gorevliliste tr').not(":first").length;
+            var top = '@(Model.setting.SalonPersonelSayisi)' * topsal;
+
+            if (ogretmenSayisi < top) {
+                $(this).val(sonSalonSayiDegeri);
+                alert("Sınav görevlendirmesi için gereken toplam gözetmen sayısı mecvut listeden fazladır!");
+                return false;
+            }
+
+            $("#txtPersonelSayi-" + okulId).text(gorevliSayisi);
+            $("#hdnPersonelSayi-" + okulId).val(gorevliSayisi);
+
+            $("#toplamSalon").html(topsal);
+            $("#toplamGorevli").html(top);
+
+            okulAdiGuncelle();
+        });
+
+        $(".input-xxsmall.salonsayi").numeric();
+
+        addOgtHidden();
+
+        function addOgtHidden() {
+            var i = 1;
+            $("#gorevliliste").find("tr:gt(0)").each(function () {
+                var ogretmenId = $(this).find("td:eq(0)").text();
+                $(this).find("td:eq(1)").empty().append('<input type="hidden" name="ogtSira" value="' + ogretmenId + '" />' + i);;
+                i++;
+            });
+        }
+
+        $("#gorevliliste").bind("sortEnd", function () {
+            addOgtHidden();
+            okulAdiGuncelle();
+        });
+
+        function okulAdiGuncelle() {
+            $(".ogtGorevliOkulu").empty();
+            var gnFx = 0;
+            $("#snvOklLst").find("tr:gt(0)").not(":first").each(function () {
+                var okulGorevliSayi = $(this).find("td:eq(4)").text();
+                var okulAdi = $(this).find("td:eq(2)").text();
+                var sayi = 0;
+
+                $("#gorevliliste").find("tr:gt(" + gnFx + ")").each(function () {
+                    if (okulGorevliSayi > sayi) {
+                        $(this).find("td:eq(6)").text(okulAdi);
+                        gnFx++;
+                    }
+                    sayi++;
+                });
+            });
+        }
+
+        $('.salonsayi').trigger("keyup");
+
+    });
+</script>
+
+<div class="panel" style="width: 98%; margin-left: 10px">
+    <div class="panel-heading">Sınav Bilgileri</div>
+    <label style="font-weight: bold; float: left; width: 120px;">SINAVIN ADI:</label>
+    <span style="float: left; margin-top: 14px;">PARASIZ YATILILIK VE BURSLULUK SINAVI / 1. OTURUM</span>
+    <div style="clear: both"></div>
+    <label style="font-weight: bold; float: left; width: 120px;">SINAVIN TARİHİ:</label>
+    <span style="float: left; margin-top: 14px;">@Model.oturum.Tarih</span>
+    <div style="clear: both"></div>
+    <label style="font-weight: bold; float: left; width: 120px;">OTURUM SAATİ:</label>
+    <span style="float: left; margin-top: 14px;">@Model.oturum.Saat</span>
+    <div style="clear: both"></div>
+
+    @* <ul class="list-group list-group-flush">
+      <li class="list-group-item">Cras justo odio</li>
+      <li class="list-group-item">Dapibus ac facilisis in</li>
+      <li class="list-group-item">Morbi leo risus</li>
+      <li class="list-group-item">Porta ac consectetur ac</li>
+      <li class="list-group-item">Vestibulum at eros</li>
+    </ul>*@
+</div>
+<div style="clear: both"></div>
+@using (Html.BeginForm("SinavGorevlendirme", "Sinav", FormMethod.Post, new { id = "registerform", @class = "pageform" }))
+{   
+    <input type="hidden" name="snvOturmId" value="@Model.oturum.SinavOturumId" />
+    <div class="modal-body" style="width: 100%">
+        <div class="panel" style="float: left; width: 50%; min-height: 458px;">
+            <div class="panel-heading">Gözetmenler</div>
+            <table id="gorevliliste" class="small-text tablesorter">
+                <colgroup>
+                    <col style="width: 7%" />
+                    <col style="width: 23%" />
+                    <col style="width: 12%" />
+                    <col style="width: 10%" />
+                    <col style="width: 10%" />
+                    <col style="width: 42%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th style="display: none"></th>
+                        <th style="text-align: center">No
+                        </th>
+                        <th>Ad Soyad
+                        </th>
+                        <th>TC No
+                        </th>
+                        <th style="text-align: center">Kıdem
+                        </th>
+                        <th style="text-align: center">Görev
+                        </th>
+                        <th style="text-align: center">Okul
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 1; }
+                    @foreach (var item in Model.ogretmen)
+                    {
+                        <tr>
+                            @*<td>@Html.HiddenFor(x => x.okul[okulindex].SchoolId)
+                        </td>*@
+                            <td style="display: none">@item.TeacherId</td>
+                            <td style="text-align: center" class="ogretmenindex">
+                                @i.ToString()
+                            </td>
+                            <td>
+                                @(item.User.Ad + " " + item.User.Soyad)
+                            </td>
+                            <td>
+                                @item.User.TCKimlik
+                            </td>
+                            <td style="text-align: center">
+                                @item.Kidem
+                            </td>
+                            <td style="text-align: center">@item.GorevSayisi</td>
+                            <td class="ogtGorevliOkulu" style="text-align: center"></td>
+                        </tr>
+                    
+                        i++;
+
+                    }
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="panel" style="float: right; width: 42%; min-height: 458px; margin-right: 5px;">
+            <div class="panel-heading">Sınav Binaları</div>
+
+            <table id="snvOklLst" class="small-text table table-striped table-hover table-bordered tablesorter-bootstrap">
+                <thead>
+                    <tr>
+                        <th style="display: none"></th>
+                        <th>No
+                        </th>
+                        <th>Okul Adı
+                        </th>
+                        <th style="text-align: center">Salon Sayısı
+                        </th>
+                        <th style="text-align: center">Görevli Sayısı
+                        </th>
+                        <th style="text-align: center">Komisyon Görevlileri
+
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td style="display: none"></td>
+                        <td></td>
+                        <td style="text-align: left">
+                            <b>Toplam</b>
+                        </td>
+                        <td style="text-align: center"><span id="toplamSalon">0</span>
+                        </td>
+                        <td style="text-align: center"><span id="toplamGorevli">0</span>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+                <tbody id="">
+                    @{ int j = 1; }
+                    @foreach (var item in Model.okul)
+                    {
+                        <tr>
+                            <td class="okulIds" style="display: none">@item.SchoolId
+                                <input type="hidden" name="SchoolId" value="@item.SchoolId" />
+                            </td>
+                            <td style="line-height: 30px; text-align: center">
+                                @j.ToString()
+                            </td>
+                            <td style="line-height: 30px;">
+                                @item.Ad
+                            </td>
+                            <td style="text-align: center">
+
+                                <input id="txtSalonSayi-@(@item.SchoolId)" name="txtSalonSayi" class="input-xxsmall salonsayi" 
+                                style="margin-bottom:0; text-align:center" type="text" value="@(item.SalonSayisi)" onfocus="this.select()" onMouseUp="return false" />
+                            </td>
+
+                            <td style="text-align: center; line-height: 30px;">
+                                <span id="txtPersonelSayi-@(@item.SchoolId)">0</span>
+                                <input type="hidden" id="hdnPersonelSayi-@(@item.SchoolId)" name="hdnPersonelSayi" value="0" />
+                            </td>
+                            <td style="text-align: center; line-height: 30px; width: 40px;">
+                                <a data-toggle="modal" data-target="#komisyonSec" href="#komisyonSec" onclick="$(this).KomisyonBilgileri(@item.SchoolId, @Model.oturum.SinavOturumId);">Seç</a>
+                            </td>
+                        </tr>
+                
+                        j++;
+                    }
+                </tbody>
+
+            </table>
+            <script>
+                $.fn.KomisyonBilgileri = function (okulID, snvOtrmID) {
+                    $("#komisyonmodal").html("<center><img style='margin:5px;' src='/Content/images/ajax-loader.gif' /></center>");
+                    $.ajax({
+                        type: "POST",
+                        url: '/Sinav/_komisyonGorevlileri',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "html",
+                        data: '{okulID:"' + okulID + '", snvOturmId:"' + snvOtrmID + '"}',
+                        success: function (result) {
+                            $("#komisyonmodal").html(result);
+                        },
+                        error: function () {
+                            $("#komisyonmodal").html("<div class='alert alert-error'><a class='close' data-dismiss='alert'>×</a>Sayfa gösterilirken bir hata oluştu. Lütfen sistem yöneticiniz ile iletişime geçiniz.</div>");
+                        }
+                    });
+                };
+            </script>
+            <div class="alert alert-info">
+                <a class="close" data-dismiss="alert">×</a>Bir salonda <b>@Model.setting.SalonPersonelSayisi</b> gözetmen görev almaktadır. 
+            Bu sayıyı ayarlar bölümünden değiştirebilirsiniz.
+            </div>
+            <button class="btn btn-primary">Görevlendirmeyi Tamamla</button>
+
+        </div>
+
+        <div class="panel" style="float: right; width: 42%; min-height: 458px; margin-right: 5px;">
+            <div class="panel-heading">Komisyon Görevlileri</div>
+
+        </div>
+    </div>
+}
+
+<div id="komisyonSec" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    @using (Html.BeginForm("KomisyonGorevli", "Sinav", FormMethod.Post))
+    {   
+        <input type="hidden" value="@Model.oturum.SinavOturumId" name="snvOturmId" />
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Komisyon Görevlileri</h3>
+        </div>
+        <div id="komisyonmodal" class="modal-body">
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Kapat</button>
+            <button class="btn btn-primary">Kaydet</button>
+        </div>
+    }
+</div>

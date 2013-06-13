@@ -1,0 +1,112 @@
+﻿@model SinavGorevlendirme.Models.SinavWrapperModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/Scripts/jquery.ui.datepicker-tr.js"></script>
+<script src="~/Scripts/jquery.timePicker.min.js"></script>
+<script src="~/Scripts/TweeterBootstrap/jquery.bootstrap-duallistbox.js"></script>
+<link href="~/Content/bootstrap-duallistbox.css" rel="stylesheet" />
+<link href="~/Content/timePicker.css" rel="stylesheet" />
+<link href="~/Content/extensions/extensions.css" rel="stylesheet" />
+<script>
+    $(document).ready(function () {
+        $("#sinavoturum_TarihSaat1").datepicker({ dateFormat: 'dd/mm/yy' });
+        $("#sinavoturum_Saat1").timePicker();
+
+    });
+</script>
+<div class="modal-header">
+    <h3>Sınav Kaydı Oluştur</h3>
+</div>
+<div class="modal-body">
+    <div class="well">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#create" data-toggle="tab">Sınav Kayıt</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane active" id="create">
+
+                @using (Html.BeginForm("Create", "Sinav", FormMethod.Post, new { id = "registerform", @class = "pageform" }))
+                {
+                    <div class="well" style="float: left; width: 30%; min-height:458px;">
+                        @Html.ValidationSummary(true)
+                        <label>Sınav Adı</label>
+                        @Html.TextBoxFor(m => m.sinav.SinavAdi, null, new { @class = "input-xlarge required" })
+
+                        <label>
+                            <a href="#" onclick="javascript:void(0); return false;" id="addButton">Oturum Ekle</a> - 
+                            <a href="#" onclick="javascript:void(0); return false;" id="removeButton">Oturum Sil</a>
+                        </label>
+                        <label>1. Oturum Zamanı</label>
+                        @Html.TextBox("sinavoturum_TarihSaat1", null, new { @class = "input-small" })<span>&nbsp;</span>
+                        @Html.TextBox("sinavoturum_Saat1", null, new { @class = "input-xxsmall" })
+                    </div>
+                    <div class="well" style="float: left; width: 55%; margin-left: 25px;">
+                        <div class="alert alert-info"><a class="close" data-dismiss="alert">×</a>
+                            Sınavın yapılacağı okulları seçerek sağdaki listeye aktarınız</div>
+                        
+                        <label>Sınavın Yapılacağı Okullar</label>
+                        @Html.DropDownList("duallistbox_okullar", (IEnumerable<SelectListItem>)ViewBag.SchoolList, null,
+                            new { @class = "demo1 span12", @multiple="multiple" })
+
+                       @* <select multiple="multiple" size="10" name="duallistbox_demo1" class='demo1 span12'>
+                            <option value="option1">Çınarlı Anadolu Teknik ve Endüstrü Meslek Lisesi</option>
+                            <option value="option2">Bornova Anadolu Lisesi</option>
+                            <option value="option3">Bornova Anadolu Lisesi</option>
+                            <option value="option4">Bornova Anadolu Lisesi</option>
+                            <option value="option5">Bornova Anadolu Lisesi</option>
+                        </select>*@
+                        <script>
+                            $('.demo1').bootstrapDualListbox();
+                        </script>
+                    </div>
+                    
+                    <div style="clear: both">
+                        <button class="btn btn-primary">Kaydet</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var counter = 1;
+        $("#addButton").click(function () {
+            if (counter > 9) {
+                alert("10 oturumdan fazla ekleme yapamazsınız");
+                return false;
+            }
+            var TextBox = '#sinavoturum_TarihSaat' + counter;
+            var TxtSaat = '#sinavoturum_Saat' + counter;
+
+            counter++;
+
+            $(TxtSaat).after('<label id=lbloturum' + counter + '>' + counter + '. Oturum : </label>' +
+                  '<input type="text" name="sinavoturum_TarihSaat' + counter +
+                  '" id="sinavoturum_TarihSaat' + counter + '" class="input-small" value="">');
+
+            $('#sinavoturum_TarihSaat' + counter).after("<span>&nbsp;</span>" +
+                  '<input class="input-xxsmall" name="sinavoturum_Saat"' + counter + ' id="sinavoturum_Saat' + counter + '" type="text" value="">'
+                  );
+
+            $('#sinavoturum_TarihSaat' + counter).datepicker({ dateFormat: 'dd/mm/yy' });
+            $("#sinavoturum_Saat" + counter).timePicker();
+
+        });
+
+        $("#removeButton").click(function () {
+            if (counter == 1) {
+                alert("En az bir oturum girmelisiniz");
+                return false;
+            }
+            $("#lbloturum" + counter).remove();
+            $("#sinavoturum_TarihSaat" + counter).remove();
+            $("#sinavoturum_Saat" + counter).remove();
+
+            counter--;
+        });
+    });
+</script>

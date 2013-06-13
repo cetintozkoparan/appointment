@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SG_DAL.Entities.School>
+@{
+    ViewBag.Title = "SchoolList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+    $(function () {
+        $("table#okullistesi").tablesorter({
+            theme: "bootstrap",
+            widthFixed: true,
+            headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+            widgets: ["uitheme", "filter", "zebra"],
+            widgetOptions: {
+                zebra: ["even", "odd"],
+                filter_reset: ".reset"
+            }
+        });
+    });
+</script>
+<h2>Okul Listesi</h2>
+@{ int i = 0;}
+<table id="okullistesi" class="tablesorter">
+    <thead>
+        <tr>
+            <th>No
+            </th>
+            <th>Okul Adı
+            </th>
+            <th>MEB Kodu
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="width:20px; text-align:center">@(++i)
+                </td>
+                <td>@item.Ad
+                </td>
+                <td>@item.MebKodu
+                </td>
+            </tr>    
+        }
+
+    </tbody>
+</table>

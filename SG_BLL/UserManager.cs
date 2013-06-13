@@ -27,21 +27,26 @@ namespace SG_BLL
 
                     if (user.Count() < 1)
                     {
+                        if (string.IsNullOrEmpty(newUser.Sifre))
+                        {
+                            newUser.Sifre = newUser.TCKimlik.ToString();
+                        }
+                        
                         userRepository.Add(newUser);
+                        result = new Result(SystemRess.Messages.basarili_kayit.ToString(), SystemRess.Messages.basarili_durum.ToString());
+                        return result;
                     }
                     else
                     {
-                        result = new Result("Aynı TC Kimlik Numaralı kişi sistemde kayıtlı", "error");
+                        result = new Result(SystemRess.Messages.hata_ayniTcSistemdeMevcut.ToString(), SystemRess.Messages.hatali_durum.ToString());
                         return result;
                     }
                 }
                 catch (Exception)
                 {
-                    result = new Result("Kayıt sırasında hata oluştu", "error");
+                    result = new Result(SystemRess.Messages.hatali_kayit.ToString(), SystemRess.Messages.hatali_durum.ToString());
                     return result;
                 }
-                result = new Result("Kayıt başarı ile gerçekleşti", "success");
-                return result;
             }
         }
     }

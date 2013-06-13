@@ -16,7 +16,19 @@ namespace SinavGorevlendirme
             routes.MapRoute("homepage_default", "yonetim", new { action = "Index", Controller = "Admin" });
             routes.MapRoute("loginpage", "yonetim/login", new { action = "Login", Controller = "Admin" });
             routes.MapRoute("homepage", "yonetim/anasayfa", new { action = "Index", Controller = "Admin" });
+            routes.MapRoute("ogretmenekle", "yonetim/ogretmenekle", new { action = "CreateTeacher", Controller = "Teacher" });
+            routes.MapRoute("xmlogretmenekle", "yonetim/xmlogretmenekle", new { action = "MultiCreateTeacher", Controller = "Teacher" });
+            routes.MapRoute("okulekle", "yonetim/okulekle", new { action = "Create", Controller = "School" });
 
+            routes.MapRoute("okulliste", "yonetim/okullistesi", new { action = "SchoolList", Controller = "School" });
+            routes.MapRoute("ogretmenliste", "yonetim/ogretmenlistesi", new { action = "TeacherList", Controller = "Teacher" });
+
+            routes.MapRoute("sinavac", "yonetim/sinavac", new { action = "Create", Controller = "Sinav" });
+            routes.MapRoute("sinavliste", "yonetim/sinavliste/{DurumId}", new { action = "SinavListe", Controller = "Sinav" });
+            routes.MapRoute("sinavlistetumu", "yonetim/sinavliste", new { action = "SinavListe", Controller = "Sinav" });
+            routes.MapRoute("sinavgorevlendirme", "yonetim/sinavgorevlendirme/{SinavOturumId}", new { action = "SinavGorevlendirme", Controller = "Sinav" });
+            routes.MapRoute("ayarlar", "yonetim/ayarlar", new { action = "Index", Controller = "Setting" });
+            
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

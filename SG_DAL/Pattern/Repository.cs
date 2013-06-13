@@ -32,6 +32,11 @@ namespace SG_DAL.Pattern
             return _objectSet.First(where);
         }
 
+        public T First()
+        {
+            return _objectSet.First();
+        }
+
         public IEnumerable<T> Find(Expression<Func<T, bool>> where)
         {
             return _objectSet.Where(where);
@@ -39,9 +44,12 @@ namespace SG_DAL.Pattern
 
         public void Delete(T entity)
         {
+            //_context.ObjectContext.AttachTo("SinavGorevli", entity);
+            _objectSet.Attach(entity);
             _objectSet.DeleteObject(entity);
             _context.ObjectContext.SaveChanges();
         }
+
 
         public bool Add(T entity)
         {
@@ -72,11 +80,10 @@ namespace SG_DAL.Pattern
         {
             return _objectSet.OrderBy(where).ToList();
         }
-        //Aldığı sorguya göre listeleme yapar
-        public List<T> TCyeGoreSec(Expression<Func<T, bool>> where)
-        {
-            return _objectSet.Where(where).ToList();
-        }
 
+        public List<T> Listele3<F>(Expression<Func<T, bool>> where, Expression<Func<T, F>> orderBy)
+        {
+            return _objectSet.Where(where).OrderBy(orderBy).ToList();
+        }
     }
 }

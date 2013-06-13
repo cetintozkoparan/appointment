@@ -33,3 +33,7 @@ C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\SG_DAL.dll
 C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\SG_DAL.pdb
 C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\SG_BLL.dll
 C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\SG_BLL.pdb
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\Net.SourceForge.Koogra.dll
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\bin\Ionic.Utils.Zip.dll
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\obj\Debug\SinavGorevlendirme.Resources.Genel.resources
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SinavGorevlendirme\obj\Debug\SinavGorevlendirme.csproj.GenerateResource.Cache

@@ -27,13 +27,20 @@ namespace SinavGorevlendirme.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult Register(User user)
-        //{
-        //    Result result = UserManager.CreateUser(user);
-        //    TempData["Status"] = result.Status;
-        //    TempData["Message"] = result.Message;
-        //    return View();
-        //}
+        [HttpPost]
+        public ActionResult Register(User user)
+        {
+            Result result = UserManager.CreateUser(user);
+            TempData["Status"] = result.Status;
+            TempData["Message"] = result.Message;
+            return View();
+        }
+
+        public PartialViewResult _onaysizSinavlar()
+        {
+            var sinavlar = SinavManager.SinavListe("Onaylanmadı");
+            return PartialView(sinavlar);
+        }
+        
     }
 }

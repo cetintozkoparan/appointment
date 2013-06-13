@@ -1,0 +1,135 @@
+﻿/*//// 
+
+    Date Created    : 7.9.2012
+    Author          : Saadettin Ördekçi
+
+    --- leftsidebar için css dosyası
+ 
+////*/
+aside {
+	padding:20px;
+	width:220px;
+	position:relative;
+}
+body.sidebar-left aside {
+	left:0;
+	position:absolute;
+	top:0;
+	margin-right:40px;
+}
+body.sidebar-right aside {
+	right:0;
+	position:absolute;
+	top:0;
+	margin-left:40px;
+}
+aside.right {
+	float:right;
+}
+aside.left {
+	float:left;
+}
+section.sidebar-off aside {
+	display:none;
+}
+aside.sidebar-off {
+	display:none;
+}
+aside .block {
+	background: url(/Areas/Admin/Content/images/sidebar-div.gif) repeat-x bottom;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
+#sidebar-nav, #sidebar-nav uFtl {
+	margin:0;
+	list-style:none;
+}
+#sidebar-nav li {
+        list-style-type:none;
+}
+#sidebar-nav li a {
+	padding:12px 5px;
+	border-bottom:1px solid #CCCCCC;
+	display:block;
+	text-decoration:none;
+	font-size:108%;
+	color:#262626;
+	font-weight:bold;
+	outline:none;
+}
+#sidebar-nav li ul {
+	display:none;
+}
+#sidebar-nav .drop a {
+	border-bottom:1px solid #d9d9d9;
+	margin-left:0;
+	font-size:100%;
+	font-weight:normal;
+	padding: 12px 10px;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+}
+#sidebar-nav .drop a:hover {
+	background: url(../images/sidebar-nav-h.gif) repeat-x bottom;
+}
+#sidebar-nav .drop a img {
+	vertical-align: -2px;
+	margin-right:10px;
+}
+#formtabs .box {
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border: 1px solid #CCCCCC;
+}
+
+/** sidebar icons **/
+#sidebar ul li a.icn_manage_image {
+	background: url('../images/icons/small/image_manage.png') no-repeat left;
+}
+#sidebar ul li a.icn_add_image {
+	background: url('../images/icons/small/image_add.png') no-repeat left;
+}
+#sidebar ul li a.icn_edit_image {
+	background: url('../images/icons/small/image_edit.png') no-repeat left;
+}
+#sidebar ul li a.icn_delete_image {
+	background: url('../images/icons/small/image_delete.png') no-repeat left;
+}
+#sidebar ul li a.icn_manage_users {
+	background: url('../images/icons/small/user.png') no-repeat left;
+}
+#sidebar ul li a.icn_add_users {
+	background: url('../images/icons/small/user_add.png') no-repeat left;
+}
+#sidebar ul li a.icn_edit_users {
+	background: url('../images/icons/small/user_edit.png') no-repeat left;
+}
+#sidebar ul li a.icn_delete_users {
+	background: url('../images/icons/small/user_delete.png') no-repeat left;
+}
+#sidebar ul li a.icn_manage_pages {
+	background: url('../images/icons/small/page.png') no-repeat left;
+}
+#sidebar ul li a.icn_add_pages {
+	background: url('../images/icons/small/page_add.png') no-repeat left;
+}
+#sidebar ul li a.icn_edit_pages {
+	background: url('../images/icons/small/page_edit.png') no-repeat left;
+}
+#sidebar ul li a.icn_delete_pages {
+	background: url('../images/icons/small/page_delete.png') no-repeat left;
+}
+#sidebar ul li a.icn_manage_comments {
+	background: url('../images/icons/small/comment.png') no-repeat left;
+}
+#sidebar ul li a.icn_add_comments {
+	background: url('../images/icons/small/comment_add.png') no-repeat left;
+}
+#sidebar ul li a.icn_edit_comments {
+	background: url('../images/icons/small/comment_edit.png') no-repeat left;
+}
+#sidebar ul li a.icn_delete_comments {
+	background: url('../images/icons/small/comment_delete.png') no-repeat left;
+}

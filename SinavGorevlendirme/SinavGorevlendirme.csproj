@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -130,16 +131,49 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\SchoolController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\SinavController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Filters\AuthenticateUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SinavGorevlendirmeWrapperModel.cs" />
+    <Compile Include="Models\SinavWrapperModel.cs" />
+    <Compile Include="Models\SinavListeWrapperModel.cs" />
+    <Compile Include="Models\TeacherListWrapperModel.cs" />
+    <Compile Include="Models\TeacherWrapperModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Genel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Genel.resx</DependentUpon>
+    </Compile>
     <Compile Include="Tools\ActionResult.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-duallistbox.css" />
+    <Content Include="Content\bootstrap-fileupload.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\extensions\base.css" />
+    <Content Include="Content\extensions\calendar.css" />
+    <Content Include="Content\extensions\extensions.css" />
+    <Content Include="Content\extensions\extras.css" />
+    <Content Include="Content\extensions\forms.css" />
+    <Content Include="Content\extensions\grid.css" />
+    <Content Include="Content\extensions\leftsidebar.css" />
+    <Content Include="Content\extensions\lists.css" />
+    <Content Include="Content\extensions\login.css" />
+    <Content Include="Content\extensions\msgBoxLight.css" />
+    <Content Include="Content\extensions\navigation.css" />
+    <Content Include="Content\extensions\notification.css" />
+    <Content Include="Content\extensions\reset.css" />
+    <Content Include="Content\extensions\style.css" />
+    <Content Include="Content\extensions\table.css" />
+    <Content Include="Content\extensions\visualize.css" />
     <Content Include="Content\fonts\titillium\SIL Open Font License 1.1.txt" />
     <Content Include="Content\fonts\titillium\stylesheet.css" />
     <Content Include="Content\images\ajax-loader.gif" />
@@ -168,6 +202,8 @@
     <Content Include="Content\images\closelabel.gif" />
     <Content Include="Content\images\error.gif" />
     <Content Include="Content\images\ft.gif" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\hdr.gif" />
     <Content Include="Content\images\hdrl.gif" />
     <Content Include="Content\images\hdrr.gif" />
@@ -176,11 +212,42 @@
     <Content Include="Content\images\imgo.gif" />
     <Content Include="Content\images\imgt.gif" />
     <Content Include="Content\images\info.gif" />
+    <Content Include="Content\images\jquery-ui1\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\jquery-ui1\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\images\jquery-ui1\ui-icons_454545_256x240.png" />
+    <Content Include="Content\images\jquery-ui1\ui-icons_888888_256x240.png" />
+    <Content Include="Content\images\jquery-ui1\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\images\jquery-ui\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\images\jquery-ui\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\images\jquery-ui\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\images\jquery-ui\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\jquery-ui\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\images\jquery-ui\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\images\jquery-ui\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\images\jquery-ui\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\images\jquery-ui\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\jquery-ui\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\images\jquery-ui\ui-icons_454545_256x240.png" />
+    <Content Include="Content\images\jquery-ui\ui-icons_888888_256x240.png" />
+    <Content Include="Content\images\jquery-ui\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\images\li.gif" />
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\mbg.png" />
+    <Content Include="Content\images\navmenu\arrow-down-light.png" />
+    <Content Include="Content\images\navmenu\arrow-down.png" />
+    <Content Include="Content\images\navmenu\arrow-inverse.png" />
+    <Content Include="Content\images\navmenu\arrow.png" />
+    <Content Include="Content\images\navmenu\baloon.png" />
+    <Content Include="Content\images\navmenu\drop-arrow.png" />
+    <Content Include="Content\images\navmenu\home_dark.png" />
+    <Content Include="Content\images\navmenu\home_light.png" />
+    <Content Include="Content\images\navmenu\mail.png" />
+    <Content Include="Content\images\navmenu\search-icon-light.png" />
+    <Content Include="Content\images\navmenu\search-icon.png" />
+    <Content Include="Content\images\navmenu\user.png" />
     <Content Include="Content\images\nsp.gif" />
     <Content Include="Content\images\phs.gif" />
+    <Content Include="Content\images\question.png" />
     <Content Include="Content\images\sdd.jpg" />
     <Content Include="Content\images\sdd_.jpg" />
     <Content Include="Content\images\sidebar.gif" />
@@ -196,6 +263,10 @@
     <Content Include="Content\images\upload.gif" />
     <Content Include="Content\images\warning.gif" />
     <Content Include="Content\adminstyle.css" />
+    <Content Include="Content\images\icons\xls.png" />
+    <Content Include="Content\jquery.tablesorter.pager.css" />
+    <Content Include="Content\prettify.css" />
+    <Content Include="Content\theme.bootstrap.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -250,6 +321,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\timePicker.css" />
     <Content Include="Content\validationEngine.jquery.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -267,7 +339,9 @@
     <Content Include="Content\fonts\titillium\TitilliumText999wt.ttf" />
     <Content Include="Content\fonts\titillium\Titillium_title03.eot" />
     <Content Include="Content\fonts\titillium\Titillium_title03.ttf" />
+    <Content Include="Content\files\Sablonlar\ornek_ogretmen_sablon.xls" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
     <Content Include="Scripts\jquery-1.8.3.min.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
@@ -275,8 +349,12 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.8.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.numeric.js" />
+    <Content Include="Scripts\jquery.timePicker.min.js" />
+    <Content Include="Scripts\jquery.ui.datepicker-tr.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -288,11 +366,13 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\prettify.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-alert.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-button.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-carousel.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-collapse.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-dropdown.js" />
+    <Content Include="Scripts\TweeterBootstrap\bootstrap-fileupload.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-modal.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-popover.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-scrollspy.js" />
@@ -300,6 +380,10 @@
     <Content Include="Scripts\TweeterBootstrap\bootstrap-tooltip.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-transition.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-typeahead.js" />
+    <Content Include="Scripts\TweeterBootstrap\jquery.bootstrap-duallistbox.js" />
+    <Content Include="Scripts\TweeterBootstrap\jquery.tablesorter.js" />
+    <Content Include="Scripts\TweeterBootstrap\jquery.tablesorter.pager.js" />
+    <Content Include="Scripts\TweeterBootstrap\jquery.tablesorter.widgets.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -317,10 +401,21 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Teacher\CreateTeacher.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\School\Create.cshtml" />
+    <Content Include="Views\School\SchoolList.cshtml" />
+    <Content Include="Views\Teacher\TeacherList.cshtml" />
+    <Content Include="Views\Sinav\Create.cshtml" />
+    <Content Include="Views\Sinav\SinavListe.cshtml" />
+    <Content Include="Views\Sinav\SinavGorevlendirme.cshtml" />
+    <Content Include="Views\Sinav\SinavSecimi.cshtml" />
+    <Content Include="Views\Shared\_onaysizSinavlar.cshtml" />
+    <Content Include="Views\Setting\Index.cshtml" />
+    <Content Include="Views\Shared\_komisyonGorevlileri.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -338,6 +433,14 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Genel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Genel.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>GenelRess</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -354,7 +457,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>59605</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:4920/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

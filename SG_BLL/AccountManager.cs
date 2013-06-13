@@ -20,7 +20,7 @@ namespace SG_BLL
                 var userRepository = new Repository<User>(db);
                 var us = userRepository.Find(d => d.TCKimlik == tckimlikno && d.Sifre == password && d.IsAdmin == isadmin);
 
-                if (us != null)
+                if (us.Count() > 0)
                 {
                     User record = new User();
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, record.Ad + "" + record.Soyad, DateTime.Now, DateTime.Now.AddMinutes(120), false, "Admin", FormsAuthentication.FormsCookiePath);

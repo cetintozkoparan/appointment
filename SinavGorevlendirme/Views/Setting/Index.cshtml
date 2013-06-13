@@ -1,0 +1,80 @@
+﻿@model SG_DAL.Entities.Setting
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@*<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+  $(function() {
+    $( "#slider-range-max" ).slider({
+      range: "max",
+      min: 1,
+      max: 10,
+      value: 2,
+      slide: function( event, ui ) {
+          $("#SalonPersonelSayisi").val(ui.value);
+      }
+    });
+    $("#SalonPersonelSayisi").val($("#slider-range-max").slider("value"));
+  });
+  </script>
+
+
+Aşağıdaki satır sayfaya eklenir:
+    <div style="width:200px; margin-left:5px;" id="slider-range-max"></div>*@
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#SalonPersonelSayisi").numeric();
+        $("#genelbasvuruhelp").tooltip({
+            'selector': '',
+            'placement': 'right'
+        });
+    });
+</script>
+
+<div class="modal-header">
+    <h3>Ayarlar</h3>
+</div>
+<div class="modal-body">
+    <div class="well">
+        <ul class="nav nav-tabs nav-pages" id="ogrtab">
+            <li class="active"><a href="#create" data-toggle="tab">Genel Ayarlar</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane active" id="create">
+            
+                @using (Html.BeginForm("UpdateSettings", "Setting", FormMethod.Post, new { id = "settingform", @class = "pageform form-horizontal" }))
+                {
+                    <div class="control-group">
+                        <label class="control-label" style="width:230px; margin-top:0; text-align:left;">Bir Salondaki Görevli Sayısı</label>
+                        <div class="controls">
+                          @Html.TextBoxFor(m => m.SalonPersonelSayisi, null, 
+                            new { @class = "input-xxsmall required numeric", @style="text-align:center;", @onfocus="this.select()", @onMouseUp="return false" })
+                          @Html.ValidationMessageFor(m => m.SalonPersonelSayisi)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" style="width:230px; margin-top:0; text-align:left;">Genel Başvuru Havuzunu Aktif</label>
+                        <div class="controls">
+                          @Html.CheckBoxFor(m => m.GenelBasvuru, 
+                            new { @class = "", @style="text-align:center;" })
+                          @Html.ValidationMessageFor(m => m.GenelBasvuru)
+                            <a href="#" rel="tooltip" title="Genel başvuru havuzuna eklemiş olduğunuz öğretmenler arasından görevlendirme yapılır." id="genelbasvuruhelp">
+                                <img style="margin: 3px auto auto 20px; cursor:pointer" src="~/Content/images/question.png" />
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top:10px;">
+                        <button class="btn btn-primary">Kaydet</button>
+                    </div>
+                   
+                }
+            </div>
+           
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@{ 
+    Layout = null; 
+}
+@model IEnumerable<SG_DAL.Entities.Teacher>
+<input type="hidden" name="okulId" value="@ViewBag.okulId" />
+<table id="snvKomisyon" class="small-text table table-striped table-hover table-bordered tablesorter-bootstrap">
+    <thead>
+        <tr>
+            <th style="text-align: center">ADI SOYADI</th>
+            <th style="text-align: center">ÜNVANI</th>
+            <th style="text-align: center">SINAV GÖREVİ</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: left">
+                @Html.DropDownList("komisyonBaskani", (IEnumerable<SelectListItem>)ViewBag.KomisyonBask)
+            </td>
+            <td style="text-align: left">Okul Müdürü</td>
+            <td style="text-align: center">Binsa Sınav Komisyon Başk.</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">
+                @Html.DropDownList("komisyonUyesi", (IEnumerable<SelectListItem>)ViewBag.KomisyonUye)
+            </td>
+            <td style="text-align: left">Müdür Yardımcısı</td>
+            <td style="text-align: center">Binsa Sınav Komisyon Üyesi</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">
+                @Html.DropDownList("komisyonUyesi2", (IEnumerable<SelectListItem>)ViewBag.KomisyonUye2)
+            </td>
+            <td style="text-align: left">Müdür Yardımcısı</td>
+            <td style="text-align: center">Binsa Sınav Komisyon Üyesi</td>
+        </tr>
+    </tbody>
+
+</table>
+

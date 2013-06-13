@@ -1,0 +1,66 @@
+﻿@model SinavGorevlendirme.Models.SinavListeWrapperModel
+@{
+    ViewBag.Title = "SinavListe";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+    $(function () {
+        $("#ddlSinavDurum").change(function () {
+            window.location.href = "/yonetim/sinavListe/" + $("#ddlSinavDurum option:selected").val();
+        });
+
+        $("table#sinavlist").tablesorter({
+            theme: "bootstrap",
+           
+            widthFixed: true,
+            headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+            widgets: ["uitheme", "filter", "zebra"],
+            widgetOptions: {
+                zebra: ["even", "odd"],
+                filter_reset: ".reset"
+            }
+        });
+    });
+
+</script>
+<h2>Sinav Listeleri</h2>
+<div class="well" style="height:30px">
+    @Html.DropDownList("ddlSinavDurum", (IEnumerable<SelectListItem>)ViewBag.SinavDurumalar, "Tüm Sınavlar")
+</div>
+<table id="sinavlist" class="table table-striped table-bordered tablesorter-bootstrap">
+    <thead>
+        <tr>
+            <th>Sınav Adı
+            </th>
+            <th>Oturum
+            </th>
+            <th>Tarih / Saat
+            </th>
+            <th>Oturum Günü
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            System.Globalization.CultureInfo trk = new System.Globalization.CultureInfo("tr-TR");
+        }
+        @foreach (var item in Model.sinavoturum)
+        {
+            <tr>
+                <td>@item.Sinav.SinavAdi
+                </td>
+                <td>
+                    @(item.OturumNo + ". Oturum")
+                </td>
+                <td>@Convert.ToDateTime(item.Tarih).ToShortDateString() @item.Saat
+                </td>
+                <td>
+                    @trk.DateTimeFormat.DayNames[(int)(Convert.ToDateTime(item.Tarih).DayOfWeek)]
+                </td>
+            </tr>    
+        }
+
+    </tbody>
+
+</table>
