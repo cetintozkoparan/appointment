@@ -11,6 +11,7 @@ using SG_DAL.Pattern;
 using SG_BLL.Tools;
 using System.IO;
 using System.Web;
+using SG_BLL.Tools.Report;
 
 namespace SG_BLL
 {
@@ -107,6 +108,34 @@ namespace SG_BLL
             {
                 var list = db.Teacher.Include("User").Include("Okul").Where(d => d.User.IsDeleted == false).ToList();
                 return list;
+            }
+        }
+
+        public static List<rptOgretmenListe> GetTeacherListForReport()
+        {
+            using (SGContext db = new SGContext())
+            {
+                var list = (from ogtLer in db.Teacher
+                           join o in db.User on ogtLer.User.UserId equals o.UserId
+                           where ogtLer.IsDeleted == false
+                           select new { 
+                                        Ad = o.Ad,
+                                        Soyad = o.Soyad,
+                                        TCKimlik = o.TCKimlik,
+                                        Email = o.Email,
+                                        Tel = o.Tel,
+                                        Kidem = ogtLer.Kidem,
+                                        Unvan = ogtLer.Unvan
+                           }).ToList();
+
+                List<rptOgretmenListe> ogtler = new List<rptOgretmenListe>();
+
+                foreach (var item in list)
+                {
+                    rptOgretmenListe ogt = new rptOgretmenListe(item.Ad, item.Soyad, item.TCKimlik, item.Email, item.Tel, item.Kidem, item.Unvan);
+                    ogtler.Add(ogt);
+                }
+                return ogtler;
             }
         }
 

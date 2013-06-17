@@ -3,6 +3,7 @@
     ViewBag.Title = "TeacherList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<script src="~/Scripts/pdfobject.js"></script>
 <script>
     $(function () {
         $("table#teacherlist").tablesorter({
@@ -21,17 +22,18 @@
     });
 </script>
 
-<h2>Öğretmen Listesi</h2>
+<h2 id="intro">Öğretmen Listesi</h2>
+
 <table id="teacherlist" class="table table-striped table-hover tablesorter-bootstrap table-bordered">
     <colgroup>
-        <col style="width:9%;" />
-        <col style="width:9%;" />
-        <col style="width:11%;" />
-        <col style="width:11%;" />
-        <col style="width:18%;" />
-        <col style="width:4%;" />
-        <col style="width:4%;" />
-        <col style="width:26%;" />
+        <col style="width: 9%;" />
+        <col style="width: 9%;" />
+        <col style="width: 11%;" />
+        <col style="width: 11%;" />
+        <col style="width: 18%;" />
+        <col style="width: 4%;" />
+        <col style="width: 4%;" />
+        <col style="width: 26%;" />
 
     </colgroup>
     <thead>
@@ -40,19 +42,19 @@
             </th>
             <th>Soyadı
             </th>
-            <th style="text-align:center">TC Kimlik
+            <th style="text-align: center">TC Kimlik
             </th>
             <th>Telefon
             </th>
             <th>Eposta
             </th>
-            <th style="text-align:center">Kıdem
+            <th style="text-align: center">Kıdem
             </th>
-            <th style="text-align:center">Görev Sayısı
+            <th style="text-align: center">Görev Sayısı
             </th>
             <th>Okul
             </th>
-            <th style="text-align:center" class="filter-false">Ünvan
+            <th style="text-align: center" class="filter-false">Ünvan
             </th>
         </tr>
     </thead>
@@ -67,7 +69,7 @@
                 <td>
                     @item.User.Soyad
                 </td>
-                <td style="text-align:center">
+                <td style="text-align: center">
                     @item.User.TCKimlik
                 </td>
                 <td>
@@ -76,21 +78,21 @@
                 <td>
                     @item.User.Email
                 </td>
-                <td style="text-align:center">
+                <td style="text-align: center">
                     @item.Kidem
                 </td>
-                <td style="text-align:center">
+                <td style="text-align: center">
                     @item.GorevSayisi
                 </td>
-                 <td>
+                <td>
                     @item.Okul.Ad
                 </td>
                 <td id="(@i)_havuz" style="text-align:center">
-                    
+
                     @(new System.Resources.ResourceManager("SinavGorevlendirme.Resources.Genel", typeof(SinavGorevlendirme.Controllers.TeacherController).Assembly).GetString(((SG_DAL.Enums.EnumUnvan)item.Unvan).ToString()))
                 </td>
             </tr>   
-            i++; 
+            i++;
         }
     </tbody>
 

@@ -45,6 +45,11 @@
       <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="PdfViewer">
+      <HintPath>..\..\PdfViewer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -131,6 +136,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SchoolController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
@@ -151,12 +157,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Genel.resx</DependentUpon>
     </Compile>
+    <Compile Include="SinavGorevlendirmeDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SinavGorevlendirmeDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Tools\ActionResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-duallistbox.css" />
     <Content Include="Content\bootstrap-fileupload.css" />
     <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-select.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\extensions\base.css" />
     <Content Include="Content\extensions\calendar.css" />
@@ -340,6 +352,7 @@
     <Content Include="Content\fonts\titillium\Titillium_title03.eot" />
     <Content Include="Content\fonts\titillium\Titillium_title03.ttf" />
     <Content Include="Content\files\Sablonlar\ornek_ogretmen_sablon.xls" />
+    <Content Include="a.pdf" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
@@ -366,6 +379,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\pdfobject.js" />
     <Content Include="Scripts\prettify.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-alert.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-button.js" />
@@ -376,6 +390,7 @@
     <Content Include="Scripts\TweeterBootstrap\bootstrap-modal.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-popover.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-scrollspy.js" />
+    <Content Include="Scripts\TweeterBootstrap\bootstrap-select.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-tab.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-tooltip.js" />
     <Content Include="Scripts\TweeterBootstrap\bootstrap-transition.js" />
@@ -413,6 +428,17 @@
     <Content Include="Views\Shared\_onaysizSinavlar.cshtml" />
     <Content Include="Views\Setting\Index.cshtml" />
     <Content Include="Views\Shared\_komisyonGorevlileri.cshtml" />
+    <Content Include="SinavGorevlendirmeDataSet.xsc">
+      <DependentUpon>SinavGorevlendirmeDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="SinavGorevlendirmeDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SinavGorevlendirmeDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SinavGorevlendirmeDataSet.xss">
+      <DependentUpon>SinavGorevlendirmeDataSet.xsd</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -434,6 +460,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\rptOgretmenler.rdlc" />
+    <EmbeddedResource Include="Reports\rptSinavGorevlendirme.rdlc" />
     <EmbeddedResource Include="Resources\Genel.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Genel.Designer.cs</LastGenOutput>

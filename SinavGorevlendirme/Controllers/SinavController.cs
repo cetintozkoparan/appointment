@@ -48,7 +48,7 @@ namespace SinavGorevlendirme.Controllers
 
             if (setting.GenelBasvuru)
             {
-                var gorevliler = SinavManager.GetSinavGorevliler(SinavOturumId);
+                var gorevliler = SinavManager.GetSinavGorevliler(SinavOturumId, (int)SG_DAL.Enums.EnumSinavGorev.Gozetmen);
 
                 ogrt = TeacherManager.GetTeacherListForGenelBasvuru();
 

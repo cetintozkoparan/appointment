@@ -2,8 +2,16 @@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<link href="~/Content/bootstrap-select.css" rel="stylesheet" />
+<script src="~/Scripts/TweeterBootstrap/bootstrap-select.js"></script>
 <script>
     $(function () {
+
+        window.onload = function () {
+            $('.selectpicker').selectpicker();
+            prettyPrint();
+        };
+
         $("table#gorevliliste").tablesorter({
             theme: "bootstrap",
             headers: {
@@ -114,10 +122,12 @@
     </ul>*@
 </div>
 <div style="clear: both"></div>
-@using (Html.BeginForm("SinavGorevlendirme", "Sinav", FormMethod.Post, new { id = "registerform", @class = "pageform" }))
-{   
-    <input type="hidden" name="snvOturmId" value="@Model.oturum.SinavOturumId" />
-    <div class="modal-body" style="width: 100%">
+
+<div class="modal-body" style="width: 100%">
+    @using (Html.BeginForm("SinavGorevlendirme", "Sinav", FormMethod.Post, new { id = "registerform", @class = "pageform" }))
+    {   
+        <input type="hidden" name="snvOturmId" value="@Model.oturum.SinavOturumId" />
+            
         <div class="panel" style="float: left; width: 50%; min-height: 458px;">
             <div class="panel-heading">Gözetmenler</div>
             <table id="gorevliliste" class="small-text tablesorter">
@@ -271,13 +281,25 @@
             <button class="btn btn-primary">Görevlendirmeyi Tamamla</button>
 
         </div>
-
-        <div class="panel" style="float: right; width: 42%; min-height: 458px; margin-right: 5px;">
-            <div class="panel-heading">Komisyon Görevlileri</div>
-
-        </div>
+    }
+    <div class="panel" style="float: right; width: 42%; min-height: 458px; margin-right: 5px;">
+        <div class="panel-heading">Raporlar</div>
+        <label>Görevlendirme Raporu</label>
+        @using (Html.BeginForm("PrintSinavGorevlendirme", "Report", FormMethod.Post))
+        {   
+            <input type="hidden" value="@Model.oturum.SinavOturumId" name="SinavOturumId" />
+            
+            <select name="reportType" class="selectpicker">
+                <option value="pdf">PDF</option>
+                <option value="excel">EXCEL</option>
+            </select>
+            <button class="btn btn-primary">Rapor Al</button>
+@*<input type="button" name="btnRapor" value="Rapor Al" class="btn btn-primary" />*@
+        }
     </div>
-}
+
+</div>
+
 
 <div id="komisyonSec" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     @using (Html.BeginForm("KomisyonGorevli", "Sinav", FormMethod.Post))
