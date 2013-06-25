@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using SG_BLL;
 using SG_DAL.Entities;
 using SinavGorevlendirme.Filters;
@@ -25,6 +26,12 @@ namespace SinavGorevlendirme.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("login", "yonetim");
+        }
+        
         [HttpPost]
         public ActionResult Login(User user)
         {
@@ -37,6 +44,7 @@ namespace SinavGorevlendirme.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Kullanıcı Adı veya Şifre Hatalı!");
+                    ViewBag.HataliGiris = "Kullanıcı Adı veya Şifre Hatalı!";
                 }
 
                 return View(user);

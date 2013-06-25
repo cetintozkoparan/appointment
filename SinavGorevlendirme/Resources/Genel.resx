@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Hizmetli" xml:space="preserve">
+    <value>Hizmetli</value>
+  </data>
   <data name="IptalEdilenSinav" xml:space="preserve">
     <value>İptal Edilen Sınavlar</value>
+  </data>
+  <data name="IptalEdilenSinavKisa" xml:space="preserve">
+    <value>İptal</value>
   </data>
   <data name="Mudur" xml:space="preserve">
     <value>Müdür</value>
@@ -132,7 +138,19 @@
   <data name="OnaylanmamisSinav" xml:space="preserve">
     <value>Onaylanmamış Sınavlar</value>
   </data>
+  <data name="OnaylanmamisSinavKisa" xml:space="preserve">
+    <value>Onaylanmadı</value>
+  </data>
   <data name="OnaylanmisSinav" xml:space="preserve">
     <value>Onaylanmış Sınavlar</value>
+  </data>
+  <data name="OnaylanmisSinavKisa" xml:space="preserve">
+    <value>Onaylandı</value>
+  </data>
+  <data name="Sofor" xml:space="preserve">
+    <value>Şöför</value>
+  </data>
+  <data name="Tasiyici" xml:space="preserve">
+    <value>Taşıyıcı</value>
   </data>
 </root>

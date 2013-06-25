@@ -696,7 +696,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>1.92292cm</Height>
+              <Height>1.52779cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -704,27 +704,27 @@
                       <TablixBody>
                         <TablixColumns>
                           <TablixColumn>
-                            <Width>1.22891cm</Width>
+                            <Width>0.96433cm</Width>
                           </TablixColumn>
                           <TablixColumn>
-                            <Width>2.02266cm</Width>
+                            <Width>2.28725cm</Width>
                           </TablixColumn>
                           <TablixColumn>
-                            <Width>2.2141cm</Width>
+                            <Width>3.03431cm</Width>
                           </TablixColumn>
                           <TablixColumn>
-                            <Width>3.08054cm</Width>
+                            <Width>3.84783cm</Width>
                           </TablixColumn>
                           <TablixColumn>
-                            <Width>3.08054cm</Width>
+                            <Width>3.92721cm</Width>
                           </TablixColumn>
                           <TablixColumn>
-                            <Width>5.12177cm</Width>
+                            <Width>2.68761cm</Width>
                           </TablixColumn>
                         </TablixColumns>
                         <TablixRows>
                           <TablixRow>
-                            <Height>1.04083cm</Height>
+                            <Height>0.97469cm</Height>
                             <TablixCells>
                               <TablixCell>
                                 <CellContents>
@@ -910,14 +910,16 @@
                                       <Paragraph>
                                         <TextRuns>
                                           <TextRun>
-                                            <Value />
+                                            <Value>GÖREVİ</Value>
                                             <Style>
                                               <FontSize>9pt</FontSize>
                                               <FontWeight>Bold</FontWeight>
                                             </Style>
                                           </TextRun>
                                         </TextRuns>
-                                        <Style />
+                                        <Style>
+                                          <TextAlign>Center</TextAlign>
+                                        </Style>
                                       </Paragraph>
                                     </Paragraphs>
                                     <rd:DefaultName>Textbox508</rd:DefaultName>
@@ -937,18 +939,18 @@
                             </TablixCells>
                           </TablixRow>
                           <TablixRow>
-                            <Height>0.88208cm</Height>
+                            <Height>0.5531cm</Height>
                             <TablixCells>
                               <TablixCell>
                                 <CellContents>
-                                  <Textbox Name="Textbox494">
+                                  <Textbox Name="PersonelSira">
                                     <CanGrow>true</CanGrow>
                                     <KeepTogether>true</KeepTogether>
                                     <Paragraphs>
                                       <Paragraph>
                                         <TextRuns>
                                           <TextRun>
-                                            <Value />
+                                            <Value>=Fields!PersonelSira.Value</Value>
                                             <Style>
                                               <FontSize>8pt</FontSize>
                                             </Style>
@@ -959,7 +961,7 @@
                                         </Style>
                                       </Paragraph>
                                     </Paragraphs>
-                                    <rd:DefaultName>Textbox494</rd:DefaultName>
+                                    <rd:DefaultName>PersonelSira</rd:DefaultName>
                                     <Style>
                                       <Border>
                                         <Color>LightGrey</Color>
@@ -975,14 +977,14 @@
                               </TablixCell>
                               <TablixCell>
                                 <CellContents>
-                                  <Textbox Name="Textbox511">
+                                  <Textbox Name="PersonelTC">
                                     <CanGrow>true</CanGrow>
                                     <KeepTogether>true</KeepTogether>
                                     <Paragraphs>
                                       <Paragraph>
                                         <TextRuns>
                                           <TextRun>
-                                            <Value />
+                                            <Value>=Fields!PersonelTC.Value</Value>
                                             <Style>
                                               <FontSize>8pt</FontSize>
                                             </Style>
@@ -993,7 +995,7 @@
                                         </Style>
                                       </Paragraph>
                                     </Paragraphs>
-                                    <rd:DefaultName>Textbox511</rd:DefaultName>
+                                    <rd:DefaultName>PersonelTC</rd:DefaultName>
                                     <Style>
                                       <Border>
                                         <Color>LightGrey</Color>
@@ -1009,14 +1011,14 @@
                               </TablixCell>
                               <TablixCell>
                                 <CellContents>
-                                  <Textbox Name="Textbox496">
+                                  <Textbox Name="PersonelAdSoyad">
                                     <CanGrow>true</CanGrow>
                                     <KeepTogether>true</KeepTogether>
                                     <Paragraphs>
                                       <Paragraph>
                                         <TextRuns>
                                           <TextRun>
-                                            <Value />
+                                            <Value>=Fields!PersonelAdSoyad.Value</Value>
                                             <Style>
                                               <FontSize>8pt</FontSize>
                                             </Style>
@@ -1027,7 +1029,7 @@
                                         </Style>
                                       </Paragraph>
                                     </Paragraphs>
-                                    <rd:DefaultName>Textbox496</rd:DefaultName>
+                                    <rd:DefaultName>PersonelAdSoyad</rd:DefaultName>
                                     <Style>
                                       <Border>
                                         <Color>LightGrey</Color>
@@ -1043,14 +1045,14 @@
                               </TablixCell>
                               <TablixCell>
                                 <CellContents>
-                                  <Textbox Name="Textbox498">
+                                  <Textbox Name="KadroluOlduguOkulAdi">
                                     <CanGrow>true</CanGrow>
                                     <KeepTogether>true</KeepTogether>
                                     <Paragraphs>
                                       <Paragraph>
                                         <TextRuns>
                                           <TextRun>
-                                            <Value />
+                                            <Value>=Fields!KadroluOlduguOkulAdi.Value</Value>
                                             <Style>
                                               <FontSize>8pt</FontSize>
                                             </Style>
@@ -1061,7 +1063,7 @@
                                         </Style>
                                       </Paragraph>
                                     </Paragraphs>
-                                    <rd:DefaultName>Textbox498</rd:DefaultName>
+                                    <rd:DefaultName>KadroluOlduguOkulAdi</rd:DefaultName>
                                     <Style>
                                       <Border>
                                         <Color>LightGrey</Color>
@@ -1090,7 +1092,9 @@
                                             </Style>
                                           </TextRun>
                                         </TextRuns>
-                                        <Style />
+                                        <Style>
+                                          <TextAlign>Center</TextAlign>
+                                        </Style>
                                       </Paragraph>
                                     </Paragraphs>
                                     <rd:DefaultName>SinavOkulAdi1</rd:DefaultName>
@@ -1109,23 +1113,25 @@
                               </TablixCell>
                               <TablixCell>
                                 <CellContents>
-                                  <Textbox Name="Textbox509">
+                                  <Textbox Name="PersonelGorev">
                                     <CanGrow>true</CanGrow>
                                     <KeepTogether>true</KeepTogether>
                                     <Paragraphs>
                                       <Paragraph>
                                         <TextRuns>
                                           <TextRun>
-                                            <Value />
+                                            <Value>=Fields!PersonelGorev.Value</Value>
                                             <Style>
                                               <FontSize>8pt</FontSize>
                                             </Style>
                                           </TextRun>
                                         </TextRuns>
-                                        <Style />
+                                        <Style>
+                                          <TextAlign>Center</TextAlign>
+                                        </Style>
                                       </Paragraph>
                                     </Paragraphs>
-                                    <rd:DefaultName>Textbox509</rd:DefaultName>
+                                    <rd:DefaultName>PersonelGorev</rd:DefaultName>
                                     <Style>
                                       <Border>
                                         <Color>LightGrey</Color>
@@ -1205,14 +1211,14 @@
               <TablixHeader>
                 <Size>0.97896cm</Size>
                 <CellContents>
-                  <Textbox Name="SinavOkulMebKodu">
+                  <Textbox Name="SinavOkulId">
                     <CanGrow>true</CanGrow>
                     <KeepTogether>true</KeepTogether>
                     <Paragraphs>
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>=Fields!SinavOkulMebKodu.Value</Value>
+                            <Value>=Fields!SinavOkulId.Value</Value>
                             <Style>
                               <FontWeight>Bold</FontWeight>
                             </Style>
@@ -1223,7 +1229,7 @@
                         </Style>
                       </Paragraph>
                     </Paragraphs>
-                    <rd:DefaultName>SinavOkulMebKodu</rd:DefaultName>
+                    <rd:DefaultName>SinavOkulId</rd:DefaultName>
                     <Visibility>
                       <Hidden>true</Hidden>
                     </Visibility>
@@ -1233,6 +1239,7 @@
                       </Border>
                     </Style>
                   </Textbox>
+                  <rd:Selected>true</rd:Selected>
                 </CellContents>
               </TablixHeader>
               <TablixMembers>
@@ -1253,7 +1260,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DSSinavGorevlendirme</DataSetName>
-        <Height>8.02021cm</Height>
+        <Height>7.62508cm</Height>
         <Width>17.72749cm</Width>
         <Style>
           <Border>
@@ -1262,7 +1269,7 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>3.16429in</Height>
+    <Height>3.002in</Height>
     <Style />
   </Body>
   <Width>6.97933in</Width>
@@ -1323,6 +1330,34 @@
         </Field>
         <Field Name="SinavOkulMebKodu">
           <DataField>SinavOkulMebKodu</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="GorevliOlduguOkulAdi">
+          <DataField>GorevliOlduguOkulAdi</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PersonelAdSoyad">
+          <DataField>PersonelAdSoyad</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PersonelTC">
+          <DataField>PersonelTC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PersonelSira">
+          <DataField>PersonelSira</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PersonelGorev">
+          <DataField>PersonelGorev</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="KadroluOlduguOkulAdi">
+          <DataField>KadroluOlduguOkulAdi</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SinavOkulId">
+          <DataField>SinavOkulId</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>

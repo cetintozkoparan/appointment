@@ -1,0 +1,40 @@
+﻿@{ 
+    Layout = null; 
+} 
+@model IEnumerable<SG_DAL.Entities.SinavOturum>
+
+<table id="sinavliste" class="table table-bordered tablesorter-bootstrap">
+    <thead>
+        <tr>
+            <th>
+                Seçim
+            </th>
+            <th>Sınav Adı
+            </th>
+            <th>Oturum
+            </th>
+            <th>Tarih / Saat
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            System.Globalization.CultureInfo trk = new System.Globalization.CultureInfo("tr-TR");
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="text-align:center">
+                    <a href="#" onclick="window.location.href='/yonetim/sinavgorevlendirme/@(item.SinavOturumId)'"> Seç</a>
+                </td>
+                <td>@item.Sinav.SinavAdi
+                </td>
+                <td>
+                    @(item.OturumNo + ". Oturum")
+                </td>
+                <td>@Convert.ToDateTime(item.Tarih).ToShortDateString() @item.Saat
+                </td>
+            </tr>    
+        }
+    </tbody>
+</table>

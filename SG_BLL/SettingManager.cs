@@ -54,5 +54,30 @@ namespace SG_BLL
                 }
             }
         }
+
+        public static object UpdateSiralama(Setting newsettings)
+        {
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    var settings = db.Setting.First();
+
+                    settings.GozetmenSiralama1 = newsettings.GozetmenSiralama1;
+                    settings.GozetmenSiralama2 = newsettings.GozetmenSiralama2;
+                    settings.GozetmenSiralama3 = newsettings.GozetmenSiralama3;
+                    db.SaveChanges();
+
+                    result = new Result(SystemRess.Messages.basarili_kayit.ToString(), SystemRess.Messages.basarili_durum.ToString());
+                    return result;
+
+                }
+                catch (Exception)
+                {
+                    result = new Result(SystemRess.Messages.hatali_kayit.ToString(), SystemRess.Messages.hatali_durum.ToString());
+                    return result;
+                }
+            }
+        }
     }
 }

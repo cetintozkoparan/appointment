@@ -1,0 +1,105 @@
+﻿@model SinavGorevlendirme.Models.SinavKatilimWrapperModel
+@{
+    ViewBag.Title = "TeacherList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/Scripts/pdfobject.js"></script>
+<script>
+    $(function () {
+        $("table#teacherlist").tablesorter({
+            theme: "bootstrap",
+            headers: {
+                
+            },
+            widthFixed: true,
+            headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+            widgets: ["uitheme", "filter", "zebra"],
+            widgetOptions: {
+                zebra: ["even", "odd"],
+                filter_reset: ".reset"
+            }
+        });
+
+        $('input[data-column="6"]').css("display", "none");
+        $('.tablesorter-filter-row').find("td:eq(6)").html("<a id='tumunusec' style='float:left' href='#'>Tümünü Seç</a> <a style='float:right' id='tumunukaldir' href='#'>Seçilileri Kaldır</a>");
+
+        $("#tumunusec").bind("click", function () {
+            $('input:checkbox').attr('checked', 'checked');
+        });
+
+        $("#tumunukaldir").bind("click", function () {
+            $('input:checkbox').removeAttr('checked');
+        });
+
+    });
+</script>
+
+<h2 id="intro">Öğretmen Listesi</h2>
+@using (Html.BeginForm("KatilimGuncelle", "Sinav", FormMethod.Post, new { id = "registerform", @class = "pageform" }))
+{
+    <input type="submit" class="btn btn-primary btn-block" value="Kaydet" /><br />
+    <table id="teacherlist" class="table table-striped table-hover tablesorter-bootstrap table-bordered">
+        <colgroup>
+            <col style="width: 3%;" />
+            <col style="width: 13%;" />
+            <col style="width: 12%;" />
+            <col style="width: 10%;" />
+            <col style="width: 20%;" />
+            <col style="width: 20%;" />
+            <col style="width: 12%;" />
+
+        </colgroup>
+        <thead>
+            <tr>
+                <th style="text-align: center">Sıra</th>
+                <th style="text-align: center">Ad Soyad
+                </th>
+                <th style="text-align: center">TC Kimlik
+                </th>
+                <th style="text-align: center">Görev
+                </th>
+                <th style="text-align: center">Kadrolu Olduğu Okul
+                </th>
+                <th style="text-align: center">Görevli Olduğu Okul
+                </th>
+                <th style="text-align: center">Katılım Durumu
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.sinav.Count(); i++)
+            {
+            <tr>
+                <td style="text-align: center">
+                    @(i + 1)
+                </td>
+                <td style="text-align: center">
+                    @Model.sinav[i].PersonelAdSoyad
+                </td>
+
+                <td style="text-align: center">
+                    @Model.sinav[i].PersonelTC
+                </td>
+
+                <td style="text-align: center">
+                    @Model.sinav[i].PersonelGorev
+                </td>
+                <td style="text-align: center">
+                    @Model.sinav[i].KadroluOlduguOkulAdi
+                </td>
+                <td style="text-align: center">
+                    @Model.sinav[i].SinavOkulAdi
+                </td>
+                <td style="text-align: center">
+                    @Html.CheckBoxFor(d => d.teachers[i].SinavKatilimi, new { @class = "chkKatilim" })
+                    @Html.HiddenFor(d => d.teachers[i].TeacherId)
+                    @*<input class="chkKatilim" type="checkbox" name="chkKatilim" />*@
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <input type="hidden" name="snvOtrmId" value="@ViewBag.SinavOturumId" />
+    <input type="submit" class="btn btn-primary btn-block" value="Kaydet" />
+}
+

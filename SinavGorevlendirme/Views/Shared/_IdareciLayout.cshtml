@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <!-- Stylesheets -->
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-fileupload.css" rel="stylesheet" />
+    <link href="~/Content/prettify.css" rel="stylesheet" />
+    <link href="~/Content/jquery.tablesorter.pager.css" rel="stylesheet" />
+    <link href="~/Content/theme.bootstrap.css" rel="stylesheet" />
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="../assets/ico/favicon.png">
+</head>
+<body>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-alert.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-button.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-carousel.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-collapse.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-dropdown.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-modal.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-tooltip.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-popover.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-scrollspy.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-tab.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-transition.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-typeahead.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/bootstrap-fileupload.js"></script>
+
+    <script src="~/Scripts/jquery.numeric.js"></script>
+
+    <script src="~/Scripts/prettify.js"></script>
+
+    <script src="~/Scripts/TweeterBootstrap/jquery.tablesorter.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/jquery.tablesorter.widgets.js"></script>
+    <script src="~/Scripts/TweeterBootstrap/jquery.tablesorter.pager.js"></script>
+
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script>
+        $(function () {
+            $.extend($.tablesorter.themes.bootstrap, {
+                table: 'table table-bordered',
+                header: 'bootstrap-header', // give the header a gradient background
+                footerRow: '',
+                footerCells: '',
+                icons: '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
+                sortNone: 'bootstrap-icon-unsorted',
+                sortAsc: 'icon-chevron-up',
+                sortDesc: 'icon-chevron-down',
+                active: '', // applied when column is sorted
+                hover: '', // use custom css here - bootstrap class may not override it
+                filterRow: '', // filter row class
+                even: '', // odd row zebra striping
+                odd: ''  // even row zebra striping
+            });
+
+            $('.dropdown-toggle').dropdown();
+        });
+
+    </script>
+    <div class="container">
+        <h1 style="color: #134c7c">Sınav Görevlendirme Sistemi</h1>
+    </div>
+    <div class="container main">
+
+        <ul class="nav nav-tabs" role="navigation" style="background-color: #134c7c; padding: 5px;">
+
+            @if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                <li class="dropdown pull-right">
+                    <a href="/home/logout">Çıkış</a>
+                </li>
+            }
+            else
+            {
+                <li class="dropdown pull-right">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">Şifemi Unuttum <strong class="caret"></strong></a>
+                    <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                        @using (Html.BeginForm("SifraHatirlat", "Account", FormMethod.Post, new { id = "registerform", @class = "pageform form-horizontal" }))
+                        {
+                            <!--[if IE 9]><label style="margin:0; font-wight:bold">Eposta</label><![endif]-->
+                            <input style="margin-bottom: 15px;" type="text" placeholder="Eposta Adresiniz" id="eposta" name="eposta">
+                            <input class="btn btn-primary btn-block" type="submit" id="sifregonder" value="Şifremi Gönder">
+                        }
+                    </div>
+                </li>
+                <li class="dropdown pull-right">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">Giriş <strong class="caret"></strong></a>
+                    <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "registerform", @class = "pageform form-horizontal" }))
+                        {
+                            <!--[if IE 9]><label style="margin:0; font-wight:bold">Kullanıcı Adı</label><![endif]-->
+                            <input style="margin-bottom: 15px;" type="text" placeholder="TC Kimlik No" id="tcno" name="TCKimlik">
+                            <!--[if IE 9]><label style="margin:0; font-wight:bold">Şifre</label><![endif]-->
+                            <input style="margin-bottom: 15px;" type="password" placeholder="Şifre" id="sifre" name="Sifre">
+                            <input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Giriş">
+                        }
+                    </div>
+                </li>
+            }
+
+            @if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                <li class="dropdown">
+                    <a href="/">Hoşgeldiniz , @HttpContext.Current.User.Identity.Name</a>
+                </li>
+                if (((FormsIdentity)HttpContext.Current.User.Identity).Ticket.UserData == "idareci")
+                {
+                <li class="dropdown pull-right">
+                    <a href="/idari/sinavlar">Sınavlar</a>
+                </li>
+                <li class="dropdown pull-right">
+                    <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown">Personel Bilgileri <b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/idari/ogretmenekle">Personel Ekle</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/idari/ogretmenlistesi">Personel Listesi</a></li>
+                    </ul>
+                </li>
+                
+                }
+            }
+        </ul>
+
+        @if (TempData["GirisBasarisiz"] != null)
+        {
+            if (TempData["GirisBasarisiz"] == "true")
+            {
+            <div class="alert alert-error">
+                <a class="close" data-dismiss="alert">×</a>
+                Giriş Başarısız! Lütfen giriş bilgilerinizi kontrol ediniz...
+            </div>
+            }
+            else
+            {
+            <div class="alert alert-success">
+                <a class="close" data-dismiss="alert">×</a>
+                Giriş Başarılı! Hoşgeldiniz...
+            </div>
+            }
+        }
+
+        @RenderBody()
+    </div>
+    <div id="footer">
+        Sınav Görevlendirme Sistemi | <a href="http://www.bilsa.com.tr">BİLSA A.Ş</a> 2013
+    </div>
+
+    @if (TempData["EventResult"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('.pageform').before('<div class="alert alert-@(((SG_BLL.Tools.Result)TempData["EventResult"]).Status)"><a class="close" data-dismiss="alert">×</a>@(((SG_BLL.Tools.Result)TempData["EventResult"]).Message)</div>');
+            });
+        </script>
+    }
+
+    @if (TempData["Status"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('.pageform').before('<div class="alert alert-@TempData["Status"]"><a class="close" data-dismiss="alert">×</a>@TempData["Message"]</div>');
+            });
+        </script>
+    }
+
+</body>
+</html>

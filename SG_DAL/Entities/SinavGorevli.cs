@@ -21,6 +21,10 @@ namespace SG_DAL.Entities
 
         public int SiraNo { get; set; }
 
+        public int OkulSiraNo { get; set; }
+
         public int SinavGorevId { get; set; }
+
+        public bool SinavKatilimi { get; set; }
     }
 }

@@ -23,11 +23,19 @@ namespace SG_BLL
                 if (us.Count() > 0)
                 {
                     User record = new User();
-                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, record.Ad + "" + record.Soyad, DateTime.Now, DateTime.Now.AddMinutes(120), false, "Admin", FormsAuthentication.FormsCookiePath);
+                    SG_DAL.Enums.EnumRol rol = (SG_DAL.Enums.EnumRol)(us.FirstOrDefault().Rol);
+
+                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, us.FirstOrDefault().Ad + " " + us.FirstOrDefault().Soyad, DateTime.Now, DateTime.Now.AddMinutes(120), false, rol.ToString(), FormsAuthentication.FormsCookiePath);
                     string encTicket = FormsAuthentication.Encrypt(ticket);
                     HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
                     if (ticket.IsPersistent) cookie.Expires = ticket.Expiration;
                     HttpContext.Current.Response.Cookies.Add(cookie);
+
+                    HttpCookie myCookie = new HttpCookie("LoginCookie");
+                    myCookie["tcno"] = us.FirstOrDefault().TCKimlik.ToString();
+                    myCookie.Expires = DateTime.Now.AddDays(1d);
+                    HttpContext.Current.Response.Cookies.Add(myCookie);
+
                     return true;
                 }
                 else

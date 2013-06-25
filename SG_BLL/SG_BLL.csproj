@@ -58,6 +58,7 @@
     <Compile Include="EvenMessages.cs" />
     <Compile Include="TeacherManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\OturumHelper.cs" />
     <Compile Include="Tools\Report\rptSinavGorevlendirme.cs" />
     <Compile Include="Tools\Report\rptOgretmenListe.cs" />
     <Compile Include="Tools\UnvanHelper.cs" />

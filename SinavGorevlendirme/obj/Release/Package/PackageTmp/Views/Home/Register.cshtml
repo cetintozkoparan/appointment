@@ -1,0 +1,50 @@
+﻿@model SG_DAL.Entities.User
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        $("#registerform").validationEngine();
+    });
+</script>
+
+<div>
+    <div class="modal-header">
+        <h3>Kullanıcı Kaydı</h3>
+    </div>
+    <div class="modal-body">
+        <div class="well">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#create" data-toggle="tab">Hesap Aç</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane active" id="create">
+                   
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "registerform", @class = "pageform" }))
+                    {
+                        @Html.ValidationSummary(true)
+                        <label>Ad</label>
+                        @Html.TextBoxFor(m => m.Ad, null, new { @class = "input-xlarge validate[required] text-input" })
+
+                        <label>Soyad</label>
+                        @Html.TextBoxFor(m => m.Soyad, null, new { @class = "input-xlarge validate[required] text-input" })
+                        
+                        <label>TC Kimlik No</label>
+                        @Html.TextBoxFor(m => m.TCKimlik, null, new { @class = "input-xlarge validate[required,custom[integer],minSize[11],maxSize[11]]" })
+                        
+                        <label>Eposta</label>
+                        @Html.TextBoxFor(m => m.Email, null, new { @class = "input-xlarge validate[required,custom[email]] text-input" })
+                        
+                        <label>Şifre</label>
+                        @Html.PasswordFor(m => m.Sifre, new { @class = "input-xlarge validate[required,minSize[8]] text-input" })
+                        
+                        <div>
+                            <button class="btn btn-primary">Kaydet</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

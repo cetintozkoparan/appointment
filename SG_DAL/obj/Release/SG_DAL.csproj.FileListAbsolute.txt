@@ -1,0 +1,10 @@
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\bin\Release\SG_DAL.dll.config
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\bin\Release\SG_DAL.dll
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\bin\Release\SG_DAL.pdb
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\bin\Release\EntityFramework.dll
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\bin\Release\EntityFramework.xml
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\obj\Release\SG_DAL.csprojResolveAssemblyReference.cache
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\obj\Release\SG_DAL.Resources.Messages.resources
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\obj\Release\SG_DAL.csproj.GenerateResource.Cache
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\obj\Release\SG_DAL.dll
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_DAL\obj\Release\SG_DAL.pdb

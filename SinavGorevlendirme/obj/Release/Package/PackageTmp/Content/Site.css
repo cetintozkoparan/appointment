@@ -1,0 +1,39 @@
+﻿/* Site css */
+.main{ margin-top: 20px; padding-left: 50px; padding-right: 50px; }
+
+/* Footer  */
+
+#push {
+	height: 40px;
+}
+
+#footer {
+	background: #134c7c;
+	border-top: 1px solid #c4c4c4;
+	bottom: 0;
+	clear: both;
+	color: #eee;
+	font-size: 11px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 16px;
+	text-align: center;
+	width: 100%;
+    position:fixed;
+}
+
+#footer a {
+	color: #fff;
+}
+
+.input-validation-error {
+	background:#FECDC6 url("/Content/images/error.gif") no-repeat 98% center !important;
+	border-color:#F45D43 !important;
+}
+
+.field-validation-error{
+    margin-left: 15px;
+    color: #d33;
+}
+
+/* Footer end*/

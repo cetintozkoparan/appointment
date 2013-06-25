@@ -49,5 +49,15 @@ namespace SG_BLL
                 }
             }
         }
+
+        public static User GetUserByTeacherId(int TeacherId)
+        {
+            using (SGContext db = new SGContext())
+            {
+                var usr = db.Teacher.Include("User").First(d => d.TeacherId == TeacherId);
+
+                return usr.User;
+            }
+        }
     }
 }

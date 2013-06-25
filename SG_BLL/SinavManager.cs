@@ -31,7 +31,8 @@ namespace SG_BLL
 
                     sinav.SinavOturum = new List<SinavOturum>();
                     int oturumNo = 1;
-                    sinav.SinavDurum = db.SinavDurum.FirstOrDefault(d => d.KisaDurum == "Onaylanmadı");
+                    //sinav.SinavDurum = db.SinavDurum.FirstOrDefault(d => d.KisaDurum == "Onaylanmadı");
+                   
                     foreach (var item in collection.AllKeys)
                     {
                         if (item.Contains("sinavoturum_Tarih"))
@@ -43,6 +44,7 @@ namespace SG_BLL
                         {
                             otur.Saat = collection.GetValues(item)[0];
                             otur.OturumNo = oturumNo++;
+                            otur.SinavOturumDurumId = (int)SG_DAL.Enums.EnumSinavDurum.OnaylanmamisSinav;
                             sinav.SinavOturum.Add(otur);
                         }
                         else if (item.Contains("duallistbox_okullar"))
@@ -100,7 +102,7 @@ namespace SG_BLL
             }
         }
 
-        private static List<SinavOturum> GetSinavOturumlari(int SinavId)
+        public static List<SinavOturum> GetSinavOturumlari(int SinavId)
         {
             using (SGContext db = new SGContext())
             {
@@ -116,13 +118,13 @@ namespace SG_BLL
             }
         }
 
-        public static List<SinavOturum> SinavListe(int DurumId)
+        public static List<SinavOturum> SinavListe(int SinavOturumDurumId)
         {
             using (SGContext db = new SGContext())
             {
                 try
                 {
-                    var oturumlar = db.SinavOturum.Include("Sinav").Where(d => d.Sinav.SinavDurum.SinavDurumId == DurumId);
+                    var oturumlar = db.SinavOturum.Include("Sinav").Where(d => d.SinavOturumDurumId == SinavOturumDurumId);
                     return oturumlar.ToList();
                 }
                 catch
@@ -164,13 +166,13 @@ namespace SG_BLL
             }
         }
 
-        public static object SinavListe(string durum)
+        public static object SinavListeByOturumDurum(int SinavOturumDurumId)
         {
             using (SGContext db = new SGContext())
             {
                 try
                 {
-                    var oturumlar = db.SinavOturum.Include("Sinav").Where(d => d.Sinav.SinavDurum.KisaDurum == durum);
+                    var oturumlar = db.SinavOturum.Include("Sinav").Where(d => d.SinavOturumDurumId == SinavOturumDurumId);
                     return oturumlar.ToList();
                 }
                 catch
@@ -186,7 +188,7 @@ namespace SG_BLL
             {
                 try
                 {
-                    var oturum = db.SinavOturum.First(d => d.SinavOturumId == SinavOturumId);
+                    var oturum = db.SinavOturum.Include("Sinav").First(d => d.SinavOturumId == SinavOturumId);
                     return oturum;
                 }
                 catch
@@ -275,7 +277,7 @@ namespace SG_BLL
                     {
                         snvOtrOklRepo.Delete(item);
                     }
-
+                    int okulogretmensira = 1;
                     foreach (var okul in okullar)
                     {
                         for (int i = 0; i < Convert.ToInt32(hdnPersonelSayi[okulIndex - 1]); i++)
@@ -286,6 +288,7 @@ namespace SG_BLL
                             var gorevli = new SinavGorevli();
                             gorevli.SinavOturumId = Convert.ToInt32(snvOturmId);
                             gorevli.SiraNo = genelSira;
+                            gorevli.OkulSiraNo = okulogretmensira;
                             gorevli.TeacherId = Convert.ToInt32(ogretmenler[genelSira - 1]);
                             gorevli.SchoolId = okul.SchoolId;
                             gorevli.SinavGorevId = (int)SG_DAL.Enums.EnumSinavGorev.Gozetmen;
@@ -293,8 +296,9 @@ namespace SG_BLL
 
                             db.SaveChanges();
                             genelSira++;
+                            okulogretmensira++;
                         }
-
+                        okulogretmensira = 1;
                         SinavOturumOkullari oturumokul = new SinavOturumOkullari();
                         oturumokul.SchoolId = okul.SchoolId;
                         oturumokul.SinavOturumId = Convert.ToInt32(snvOturmId);
@@ -351,6 +355,124 @@ namespace SG_BLL
                     return null;
                 }
             }
+        }
+
+        public static List<rptSinavGorevlendirme> GetKatilimOgretmenleri(int SinavOturumId)
+        {
+            using (SGContext db = new SGContext())
+            {
+                var list = (from grv in db.SinavGorevli
+                            join otrm in db.SinavOturum on grv.SinavOturumId equals otrm.SinavOturumId
+                            join tch in db.Teacher on grv.TeacherId equals tch.TeacherId
+                            join tchUsr in db.User on tch.User.UserId equals tchUsr.UserId
+                            join otrokl in db.SinavOturumOkullari on grv.SinavOturumId equals otrokl.SinavOturumId
+                            join ogtokl in db.School on tch.SchoolId equals ogtokl.SchoolId
+                            join okl in db.School on grv.SchoolId equals okl.SchoolId
+                            join snv in db.Sinav on otrm.SinavId equals snv.SinavId
+                            where otrm.SinavOturumId == SinavOturumId &&
+                                    grv.SinavGorevId == (int)SG_DAL.Enums.EnumSinavGorev.Gozetmen
+                            select new
+                            {
+                                SinavAdi = snv.SinavAdi,
+                                SinavTarihi = (DateTime)otrm.Tarih,
+                                SinavSaati = otrm.Saat,
+                                SinavOkulAdi = okl.Ad,
+                                SinavOkulMebKodu = okl.MebKodu,
+                                KadroluOlduguOkulAdi = ogtokl.Ad,
+                                PersonelSira = grv.SiraNo,
+                                PersonelAdSoyad = tchUsr.Ad + " " + tchUsr.Soyad,
+                                PersonelTC = tchUsr.TCKimlik,
+                                PersonelGorev = (SG_DAL.Enums.EnumSinavGorev)grv.SinavGorevId,
+                                SinavOkulId = okl.SchoolId,
+                                KatilimDurumu = grv.SinavKatilimi,
+                                OgretmenId = tch.TeacherId,
+                                KomisyonBaskani =
+                                                (from u1 in db.User
+                                                 join t1 in db.Teacher on u1.UserId equals t1.User.UserId
+                                                 join g1 in db.SinavGorevli on t1.TeacherId equals g1.TeacherId
+                                                 where g1.SinavGorevId == (int)SG_DAL.Enums.EnumSinavGorev.BinaSinavKomisyonuBaskani
+                                                 && g1.SinavOturumId == SinavOturumId
+                                                 && g1.SchoolId == okl.SchoolId
+                                                 && g1.SiraNo == 1
+                                                 select new { AdSoyad = u1.Ad + " " + u1.Soyad }
+                                                   ).FirstOrDefault().AdSoyad
+                                                   ,
+                                KomisyonUyesi =
+                                                (from u1 in db.User
+                                                 join t1 in db.Teacher on u1.UserId equals t1.User.UserId
+                                                 join g1 in db.SinavGorevli on t1.TeacherId equals g1.TeacherId
+                                                 where g1.SinavGorevId == (int)SG_DAL.Enums.EnumSinavGorev.BinaSinavKomisyonuUyesi
+                                                 && g1.SinavOturumId == SinavOturumId
+                                                 && g1.SchoolId == okl.SchoolId
+                                                 && g1.SiraNo == 2
+                                                 select new { AdSoyad2 = u1.Ad + " " + u1.Soyad }
+                                                   ).FirstOrDefault().AdSoyad2
+                                                   ,
+                                KomisyonUyesi2 =
+                                                 (from u1 in db.User
+                                                  join t1 in db.Teacher on u1.UserId equals t1.User.UserId
+                                                  join g1 in db.SinavGorevli on t1.TeacherId equals g1.TeacherId
+                                                  where g1.SinavGorevId == (int)SG_DAL.Enums.EnumSinavGorev.BinaSinavKomisyonuUyesi
+                                                  && g1.SinavOturumId == SinavOturumId
+                                                  && g1.SchoolId == okl.SchoolId
+                                                  && g1.SiraNo == 3
+                                                  select new { AdSoyad3 = u1.Ad + " " + u1.Soyad }
+                                                   ).FirstOrDefault().AdSoyad3
+
+                            }).Distinct().OrderBy(d => d.SinavOkulId).ToList();
+
+                List<rptSinavGorevlendirme> sg = new List<rptSinavGorevlendirme>();
+
+                foreach (var item in list)
+                {
+                    rptSinavGorevlendirme snv = new rptSinavGorevlendirme(item.SinavAdi, item.SinavTarihi, item.SinavSaati, item.SinavOkulAdi,
+                        item.KomisyonBaskani, item.KomisyonUyesi, item.KomisyonUyesi2, item.SinavOkulMebKodu, item.KadroluOlduguOkulAdi,
+                        item.PersonelTC, item.PersonelAdSoyad, item.PersonelSira, item.PersonelGorev.ToString(), item.SinavOkulId, item.KatilimDurumu, item.OgretmenId);
+                    sg.Add(snv);
+                }
+                return sg;
+            }
+            //using (SGContext db = new SGContext())
+            //{
+            //    try
+            //    {
+            //        var list = (from tch in db.Teacher
+            //                    join user in db.User on tch.User.UserId equals user.UserId
+            //                    join grv in db.SinavGorevli on tch.TeacherId equals grv.TeacherId
+            //                    join otrm in db.SinavOturum on grv.SinavOturumId equals otrm.SinavOturumId
+            //                    where otrm.SinavOturumId == SinavOturumId &&
+            //                            grv.SinavGorevId == (int)SG_DAL.Enums.EnumSinavGorev.Gozetmen
+            //                    select new
+            //                    {
+            //                        tch.TeacherId,
+            //                        tch.Unvan,
+            //                        tch.GorevSayisi,
+            //                        tch.Kidem,
+            //                        user.UserId,
+            //                        user.Ad,
+            //                        user.Soyad,
+            //                        user.TCKimlik,
+            //                        user.Tel,
+            //                        user.Email
+            //                    });
+
+            //        List<Teacher> tchList = new List<Teacher>();
+
+            //        foreach (var item in list)
+            //        {
+            //            Teacher tc = new Teacher();
+            //            tc.TeacherId = item.TeacherId;
+            //            tc.GorevSayisi = item.GorevSayisi;
+            //            tc.Kidem = item.Kidem;
+            //        }
+
+            //        return tchList.ToList();
+            //    }
+            //    catch (Exception)
+            //    {
+            //        return null;
+            //    }
+            //}
         }
 
         public static List<SinavGorevli> GetSinavGorevliler(int SinavOturumId, int GorevId, int OkulId)
@@ -518,11 +640,14 @@ namespace SG_BLL
             {
                 var list = (from grv in db.SinavGorevli
                             join otrm in db.SinavOturum on grv.SinavOturumId equals otrm.SinavOturumId
+                            join tch in db.Teacher on grv.TeacherId equals tch.TeacherId
+                            join tchUsr in db.User on tch.User.UserId equals tchUsr.UserId
                             join otrokl in db.SinavOturumOkullari on grv.SinavOturumId equals otrokl.SinavOturumId
-                            join ogtokl in db.School on grv.SchoolId equals ogtokl.SchoolId
-                            join okl in db.School on otrokl.SchoolId equals okl.SchoolId
+                            join ogtokl in db.School on tch.SchoolId equals ogtokl.SchoolId
+                            join okl in db.School on grv.SchoolId equals okl.SchoolId
                             join snv in db.Sinav on otrm.SinavId equals snv.SinavId
-                            where otrm.SinavOturumId == SinavOturumId
+                            where   otrm.SinavOturumId == SinavOturumId && 
+                                    grv.SinavGorevId == (int)SG_DAL.Enums.EnumSinavGorev.Gozetmen
                             select new
                             {
                                 SinavAdi = snv.SinavAdi,
@@ -530,7 +655,14 @@ namespace SG_BLL
                                 SinavSaati = otrm.Saat,
                                 SinavOkulAdi = okl.Ad,
                                 SinavOkulMebKodu = okl.MebKodu,
-                                GorevliOlduguOkulAdi = ogtokl.Ad,
+                                KadroluOlduguOkulAdi = ogtokl.Ad,
+                                PersonelSira = grv.SiraNo,
+                                PersonelAdSoyad = tchUsr.Ad + " " + tchUsr.Soyad,
+                                PersonelTC = tchUsr.TCKimlik,
+                                PersonelGorev = (SG_DAL.Enums.EnumSinavGorev)grv.SinavGorevId,
+                                SinavOkulId = okl.SchoolId,
+                                KatilimDurumu = grv.SinavKatilimi,
+                                OgretmenId = grv.TeacherId,
                                 KomisyonBaskani =
                                                 (from u1 in db.User
                                                  join t1 in db.Teacher on u1.UserId equals t1.User.UserId
@@ -563,23 +695,20 @@ namespace SG_BLL
                                                   &&    g1.SiraNo == 3
                                                   select new { AdSoyad3 = u1.Ad + " " + u1.Soyad }
                                                    ).FirstOrDefault().AdSoyad3
-                                                   
-                            }).ToList();
+
+                            }).Distinct().OrderBy(d => d.SinavOkulId).ToList();
 
                 List<rptSinavGorevlendirme> sg = new List<rptSinavGorevlendirme>();
 
                 foreach (var item in list)
                 {
-                    rptSinavGorevlendirme snv = new rptSinavGorevlendirme(item.SinavAdi, item.SinavTarihi, item.SinavSaati,item.SinavOkulAdi, item.KomisyonBaskani, item.KomisyonUyesi, item.KomisyonUyesi2, item.SinavOkulMebKodu, item.GorevliOlduguOkulAdi);
+                    rptSinavGorevlendirme snv = new rptSinavGorevlendirme(item.SinavAdi, item.SinavTarihi, item.SinavSaati, item.SinavOkulAdi, 
+                        item.KomisyonBaskani, item.KomisyonUyesi, item.KomisyonUyesi2, item.SinavOkulMebKodu, item.KadroluOlduguOkulAdi, 
+                        item.PersonelTC, item.PersonelAdSoyad, item.PersonelSira, item.PersonelGorev.ToString(), item.SinavOkulId, item.KatilimDurumu, item.OgretmenId);
                     sg.Add(snv);
                 }
                 return sg;
             }
-        }
-
-        private static string GetKomisyonBaskani()
-        {
-            return "dfsklfsdnklf";
         }
 
         private static string GetKomisyonUyesi(int SinavOturumId, int okulID, int uyeSira)
@@ -604,6 +733,105 @@ namespace SG_BLL
                 catch (Exception)
                 {
                     return null;
+                }
+            }
+        }
+
+        public static bool GorevdenCikar(int tchID, int snOturumID)
+        {
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    var gorevli = db.SinavGorevli.FirstOrDefault(d => d.TeacherId == tchID && d.SinavOturumId == snOturumID);
+
+                    if (gorevli != null)
+                    {
+                        var setting = SettingManager.GetSettings();
+
+                        if (setting.GenelBasvuru)
+                        {
+                            var gorevliler = SinavManager.GetSinavGorevliler(snOturumID, (int)SG_DAL.Enums.EnumSinavGorev.Gozetmen);
+
+                            var ogrt = TeacherManager.GetTeacherListForGenelBasvuru();
+
+                            if (gorevliler.Count() > 0)
+                            {
+                                foreach (var item in ogrt)
+                                {
+                                    var yenigorevli = SinavManager.GetSinavGorevli(snOturumID, item.TeacherId);
+
+                                    if (yenigorevli == null)
+                                    {
+                                        gorevli.TeacherId = item.TeacherId;
+                                        db.SaveChanges();
+                                        break;                                        
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    
+                    /*if (gorevli != null)
+	                {
+                        var okulgorevlileri = db.SinavGorevli.Where(d => d.SchoolId == gorevli.SchoolId && d.SinavOturumId == snOturumID);
+                        foreach (var item in okulgorevlileri)
+                        {
+                            item.si
+                        }
+	                }*/
+                    
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return true;
+                }
+            }
+        }
+
+
+        public static bool SinavOturumDurumGuncelle(int snvOturmId, int ddlSinavDurum)
+        {
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    db.SinavOturum.FirstOrDefault(d => d.SinavOturumId == snvOturmId).SinavOturumDurumId = ddlSinavDurum;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static void KatilimGuncelle(List<SinavGorevli> teachers)
+        {
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    foreach (var item in teachers)
+                    {
+                        SinavGorevli sg = db.SinavGorevli.FirstOrDefault(d => d.TeacherId == item.TeacherId & d.SinavOturumId == item.SinavOturumId);
+                        sg.SinavKatilimi = item.SinavKatilimi;
+                        db.SaveChanges();
+                        List<SinavGorevli> sgList = db.SinavGorevli.Where(d => d.TeacherId == item.TeacherId && d.SinavKatilimi == true).ToList();
+                        db.Teacher.FirstOrDefault(d => d.TeacherId == item.TeacherId).GorevSayisi = sgList.Count();
+                        db.SaveChanges();
+                    }
+                }
+                catch (Exception)
+                {
+
                 }
             }
         }

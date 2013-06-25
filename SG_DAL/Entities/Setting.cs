@@ -13,5 +13,8 @@ namespace SG_DAL.Entities
         public int Setting_Id { get; set; }
         public int SalonPersonelSayisi { get; set; }
         public bool GenelBasvuru { get; set; }
+        public int GozetmenSiralama1 { get; set; }
+        public int GozetmenSiralama2 { get; set; }
+        public int GozetmenSiralama3 { get; set; }
     }
 }

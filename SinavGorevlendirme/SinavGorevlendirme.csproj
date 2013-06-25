@@ -135,7 +135,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\IdariController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SchoolController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SinavKatilimWrapperModel.cs" />
     <Compile Include="Models\SinavGorevlendirmeWrapperModel.cs" />
     <Compile Include="Models\SinavWrapperModel.cs" />
     <Compile Include="Models\SinavListeWrapperModel.cs" />
@@ -156,6 +159,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Genel.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SinavGorevlendirmeDataSet.cs">
+      <DependentUpon>SinavGorevlendirmeDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SinavGorevlendirmeDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -216,6 +223,7 @@
     <Content Include="Content\images\ft.gif" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\images\gorevlendir.png" />
     <Content Include="Content\images\hdr.gif" />
     <Content Include="Content\images\hdrl.gif" />
     <Content Include="Content\images\hdrr.gif" />
@@ -258,6 +266,7 @@
     <Content Include="Content\images\navmenu\search-icon.png" />
     <Content Include="Content\images\navmenu\user.png" />
     <Content Include="Content\images\nsp.gif" />
+    <Content Include="Content\images\ogt_sil.png" />
     <Content Include="Content\images\phs.gif" />
     <Content Include="Content\images\question.png" />
     <Content Include="Content\images\sdd.jpg" />
@@ -353,6 +362,7 @@
     <Content Include="Content\fonts\titillium\Titillium_title03.ttf" />
     <Content Include="Content\files\Sablonlar\ornek_ogretmen_sablon.xls" />
     <Content Include="a.pdf" />
+    <None Include="Properties\PublishProfiles\gorev-ftp.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
@@ -439,6 +449,14 @@
     <Content Include="SinavGorevlendirmeDataSet.xss">
       <DependentUpon>SinavGorevlendirmeDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Views\Shared\_IdareciLayout.cshtml" />
+    <Content Include="Views\Teacher\CreateTeacherForIdari.cshtml" />
+    <Content Include="Views\Idari\Index.cshtml" />
+    <Content Include="Views\Teacher\TeacherListForIdari.cshtml" />
+    <Content Include="Views\Sinav\SinavListeForIdari.cshtml" />
+    <Content Include="Views\Sinav\KatilimListesi.cshtml" />
+    <Content Include="Views\Teacher\TeacherEditForIdari.cshtml" />
+    <Content Include="Views\Teacher\PersonelBilgi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

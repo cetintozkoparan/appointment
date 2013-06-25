@@ -1,0 +1,12 @@
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_BLL\bin\Release\SG_BLL.dll.config
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_BLL\bin\Release\SG_BLL.dll
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_BLL\bin\Release\SG_BLL.pdb
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_BLL\bin\Release\EntityFramework.dll
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_BLL\bin\Release\Ionic.Utils.Zip.dll
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_BLL\bin\Release\Net.SourceForge.Koogra.dll
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_BLL\bin\Release\SG_DAL.dll
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_BLL\bin\Release\SG_DAL.pdb
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_BLL\bin\Release\EntityFramework.xml
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_BLL\obj\Release\SG_BLL.csprojResolveAssemblyReference.cache
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_BLL\obj\Release\SG_BLL.dll
+C:\Users\Pagatron\Desktop\SinavGorevlendirme\SG_BLL\obj\Release\SG_BLL.pdb

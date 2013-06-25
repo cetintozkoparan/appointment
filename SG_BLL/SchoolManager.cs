@@ -88,7 +88,24 @@ namespace SG_BLL
                         }
                     }
 
-                    return okulListesi;
+                    return okulListesi.OrderBy(d=>d.MebKodu).ToList();
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static School GetSchoolByTCNo(Int64 tcno)
+        {
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    Teacher us = db.Teacher.Include("Okul").Include("User").FirstOrDefault(d=>d.User.TCKimlik == tcno);
+
+                    return us.Okul;
                 }
                 catch (Exception)
                 {

@@ -10,6 +10,9 @@ namespace SG_DAL.Enums
     {
         Ogretmen = 1,
         Mudur = 2,
-        MudurYardimcisi = 3
+        MudurYardimcisi = 3,
+        Hizmetli = 4,
+        Sofor = 5,
+        Tasiyici = 6
     }
 }

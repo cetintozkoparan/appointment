@@ -4377,6 +4377,18 @@ namespace SinavGorevlendirme {
             
             private global::System.Data.DataColumn columnGorevliOlduguOkulAdi;
             
+            private global::System.Data.DataColumn columnPersonelAdSoyad;
+            
+            private global::System.Data.DataColumn columnPersonelTC;
+            
+            private global::System.Data.DataColumn columnPersonelSira;
+            
+            private global::System.Data.DataColumn columnPersonelGorev;
+            
+            private global::System.Data.DataColumn columnKadroluOlduguOkulAdi;
+            
+            private global::System.Data.DataColumn columnSinavOkulId;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SinavGorevlendirmeDataTable() {
@@ -4484,6 +4496,54 @@ namespace SinavGorevlendirme {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PersonelAdSoyadColumn {
+                get {
+                    return this.columnPersonelAdSoyad;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PersonelTCColumn {
+                get {
+                    return this.columnPersonelTC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PersonelSiraColumn {
+                get {
+                    return this.columnPersonelSira;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PersonelGorevColumn {
+                get {
+                    return this.columnPersonelGorev;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn KadroluOlduguOkulAdiColumn {
+                get {
+                    return this.columnKadroluOlduguOkulAdi;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SinavOkulIdColumn {
+                get {
+                    return this.columnSinavOkulId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4519,7 +4579,7 @@ namespace SinavGorevlendirme {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SinavGorevlendirmeRow AddSinavGorevlendirmeRow(string SinavAdi, string SinavSaati, string SinavTarihi, string KomisyonBaskani, string KomisyonUyesi, string KomisyonUyesi2, string SinavOkulAdi, string SinavOkulMebKodu, string GorevliOlduguOkulAdi) {
+            public SinavGorevlendirmeRow AddSinavGorevlendirmeRow(string SinavAdi, string SinavSaati, string SinavTarihi, string KomisyonBaskani, string KomisyonUyesi, string KomisyonUyesi2, string SinavOkulAdi, string SinavOkulMebKodu, string GorevliOlduguOkulAdi, string PersonelAdSoyad, string PersonelTC, string PersonelSira, string PersonelGorev, string KadroluOlduguOkulAdi, string SinavOkulId) {
                 SinavGorevlendirmeRow rowSinavGorevlendirmeRow = ((SinavGorevlendirmeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         SinavAdi,
@@ -4530,7 +4590,13 @@ namespace SinavGorevlendirme {
                         KomisyonUyesi2,
                         SinavOkulAdi,
                         SinavOkulMebKodu,
-                        GorevliOlduguOkulAdi};
+                        GorevliOlduguOkulAdi,
+                        PersonelAdSoyad,
+                        PersonelTC,
+                        PersonelSira,
+                        PersonelGorev,
+                        KadroluOlduguOkulAdi,
+                        SinavOkulId};
                 rowSinavGorevlendirmeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSinavGorevlendirmeRow);
                 return rowSinavGorevlendirmeRow;
@@ -4562,6 +4628,12 @@ namespace SinavGorevlendirme {
                 this.columnSinavOkulAdi = base.Columns["SinavOkulAdi"];
                 this.columnSinavOkulMebKodu = base.Columns["SinavOkulMebKodu"];
                 this.columnGorevliOlduguOkulAdi = base.Columns["GorevliOlduguOkulAdi"];
+                this.columnPersonelAdSoyad = base.Columns["PersonelAdSoyad"];
+                this.columnPersonelTC = base.Columns["PersonelTC"];
+                this.columnPersonelSira = base.Columns["PersonelSira"];
+                this.columnPersonelGorev = base.Columns["PersonelGorev"];
+                this.columnKadroluOlduguOkulAdi = base.Columns["KadroluOlduguOkulAdi"];
+                this.columnSinavOkulId = base.Columns["SinavOkulId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4585,6 +4657,18 @@ namespace SinavGorevlendirme {
                 base.Columns.Add(this.columnSinavOkulMebKodu);
                 this.columnGorevliOlduguOkulAdi = new global::System.Data.DataColumn("GorevliOlduguOkulAdi", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnGorevliOlduguOkulAdi);
+                this.columnPersonelAdSoyad = new global::System.Data.DataColumn("PersonelAdSoyad", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPersonelAdSoyad);
+                this.columnPersonelTC = new global::System.Data.DataColumn("PersonelTC", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPersonelTC);
+                this.columnPersonelSira = new global::System.Data.DataColumn("PersonelSira", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPersonelSira);
+                this.columnPersonelGorev = new global::System.Data.DataColumn("PersonelGorev", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPersonelGorev);
+                this.columnKadroluOlduguOkulAdi = new global::System.Data.DataColumn("KadroluOlduguOkulAdi", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnKadroluOlduguOkulAdi);
+                this.columnSinavOkulId = new global::System.Data.DataColumn("SinavOkulId", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSinavOkulId);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6274,6 +6358,103 @@ namespace SinavGorevlendirme {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string PersonelAdSoyad {
+                get {
+                    try {
+                        return ((string)(this[this.tableSinavGorevlendirme.PersonelAdSoyadColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PersonelAdSoyad\' in table \'SinavGorevlendirme\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSinavGorevlendirme.PersonelAdSoyadColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string PersonelTC {
+                get {
+                    try {
+                        return ((string)(this[this.tableSinavGorevlendirme.PersonelTCColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PersonelTC\' in table \'SinavGorevlendirme\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSinavGorevlendirme.PersonelTCColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string PersonelSira {
+                get {
+                    try {
+                        return ((string)(this[this.tableSinavGorevlendirme.PersonelSiraColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PersonelSira\' in table \'SinavGorevlendirme\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSinavGorevlendirme.PersonelSiraColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string PersonelGorev {
+                get {
+                    try {
+                        return ((string)(this[this.tableSinavGorevlendirme.PersonelGorevColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PersonelGorev\' in table \'SinavGorevlendirme\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSinavGorevlendirme.PersonelGorevColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string KadroluOlduguOkulAdi {
+                get {
+                    try {
+                        return ((string)(this[this.tableSinavGorevlendirme.KadroluOlduguOkulAdiColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'KadroluOlduguOkulAdi\' in table \'SinavGorevlendirme\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableSinavGorevlendirme.KadroluOlduguOkulAdiColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string SinavOkulId {
+                get {
+                    try {
+                        return ((string)(this[this.tableSinavGorevlendirme.SinavOkulIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SinavOkulId\' in table \'SinavGorevlendirme\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSinavGorevlendirme.SinavOkulIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsSinavAdiNull() {
                 return this.IsNull(this.tableSinavGorevlendirme.SinavAdiColumn);
             }
@@ -6378,6 +6559,78 @@ namespace SinavGorevlendirme {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetGorevliOlduguOkulAdiNull() {
                 this[this.tableSinavGorevlendirme.GorevliOlduguOkulAdiColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPersonelAdSoyadNull() {
+                return this.IsNull(this.tableSinavGorevlendirme.PersonelAdSoyadColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPersonelAdSoyadNull() {
+                this[this.tableSinavGorevlendirme.PersonelAdSoyadColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPersonelTCNull() {
+                return this.IsNull(this.tableSinavGorevlendirme.PersonelTCColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPersonelTCNull() {
+                this[this.tableSinavGorevlendirme.PersonelTCColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPersonelSiraNull() {
+                return this.IsNull(this.tableSinavGorevlendirme.PersonelSiraColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPersonelSiraNull() {
+                this[this.tableSinavGorevlendirme.PersonelSiraColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPersonelGorevNull() {
+                return this.IsNull(this.tableSinavGorevlendirme.PersonelGorevColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPersonelGorevNull() {
+                this[this.tableSinavGorevlendirme.PersonelGorevColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsKadroluOlduguOkulAdiNull() {
+                return this.IsNull(this.tableSinavGorevlendirme.KadroluOlduguOkulAdiColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetKadroluOlduguOkulAdiNull() {
+                this[this.tableSinavGorevlendirme.KadroluOlduguOkulAdiColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSinavOkulIdNull() {
+                return this.IsNull(this.tableSinavGorevlendirme.SinavOkulIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSinavOkulIdNull() {
+                this[this.tableSinavGorevlendirme.SinavOkulIdColumn] = global::System.Convert.DBNull;
             }
         }
         

@@ -61,11 +61,29 @@ namespace GenelRess {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hizmetli.
+        /// </summary>
+        public static string Hizmetli {
+            get {
+                return ResourceManager.GetString("Hizmetli", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to İptal Edilen Sınavlar.
         /// </summary>
         public static string IptalEdilenSinav {
             get {
                 return ResourceManager.GetString("IptalEdilenSinav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to İptal.
+        /// </summary>
+        public static string IptalEdilenSinavKisa {
+            get {
+                return ResourceManager.GetString("IptalEdilenSinavKisa", resourceCulture);
             }
         }
         
@@ -106,11 +124,47 @@ namespace GenelRess {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Onaylanmadı.
+        /// </summary>
+        public static string OnaylanmamisSinavKisa {
+            get {
+                return ResourceManager.GetString("OnaylanmamisSinavKisa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Onaylanmış Sınavlar.
         /// </summary>
         public static string OnaylanmisSinav {
             get {
                 return ResourceManager.GetString("OnaylanmisSinav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onaylandı.
+        /// </summary>
+        public static string OnaylanmisSinavKisa {
+            get {
+                return ResourceManager.GetString("OnaylanmisSinavKisa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Şöför.
+        /// </summary>
+        public static string Sofor {
+            get {
+                return ResourceManager.GetString("Sofor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taşıyıcı.
+        /// </summary>
+        public static string Tasiyici {
+            get {
+                return ResourceManager.GetString("Tasiyici", resourceCulture);
             }
         }
     }

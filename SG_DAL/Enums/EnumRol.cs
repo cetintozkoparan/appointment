@@ -10,6 +10,7 @@ namespace SG_DAL.Enums
     {
         yonetici = 1,
         ogretmen = 2,
-        idareci = 3
+        idareci = 3,
+        hizmetli = 4
     }
 }

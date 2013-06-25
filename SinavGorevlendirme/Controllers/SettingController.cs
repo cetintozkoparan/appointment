@@ -25,5 +25,13 @@ namespace SinavGorevlendirme.Controllers
             
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult SiralamaGuncelle(Setting settings)
+        {
+            TempData["EventResult"] = SettingManager.UpdateSiralama(settings);
+
+            return RedirectToAction("Index");
+        }
     }
 }

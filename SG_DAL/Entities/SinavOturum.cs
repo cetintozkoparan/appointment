@@ -30,5 +30,7 @@ namespace SG_DAL.Entities
         public int OturumNo { get; set; }
         public int SinavId { get; set; }
         public Sinav Sinav { get; set; }
+
+        public int SinavOturumDurumId { get; set; }
     }
 }

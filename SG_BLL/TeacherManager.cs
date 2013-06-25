@@ -19,6 +19,41 @@ namespace SG_BLL
     {
         public static Result result;
 
+        public static Result updateTeacher(User newUser, Teacher teacher)
+        {
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    var userRepository = new Repository<User>(db);
+                    var tchRepo = new Repository<Teacher>(db);
+                    var user = userRepository.First(d => d.UserId == newUser.UserId);
+                    var tch = tchRepo.First(d => d.TeacherId == teacher.TeacherId);
+                    
+                    user.Ad = newUser.Ad;
+                    user.Email = newUser.Email;
+                    user.Soyad = newUser.Soyad;
+                    user.TCKimlik = newUser.TCKimlik;
+                    user.Tel = newUser.Tel;
+
+                    tch.GenelBasvuru = teacher.GenelBasvuru;
+                    tch.Kidem = teacher.Kidem;
+                    tch.SchoolId = teacher.SchoolId;
+                    tch.Unvan = teacher.Unvan;
+
+                    db.SaveChanges();
+
+                    result = new Result(SystemRess.Messages.basarili_kayit.ToString(), SystemRess.Messages.basarili_durum.ToString());
+                    return result;
+                }
+                catch (Exception)
+                {
+                    result = new Result(SystemRess.Messages.hatali_kayit.ToString(), SystemRess.Messages.hatali_durum.ToString());
+                    return result;
+                }
+            }
+        }
+
         public static Result addTeacher(User newUser, Teacher teacher)
         {
             using (SGContext db = new SGContext())
@@ -42,8 +77,8 @@ namespace SG_BLL
                     var okul = okulRepo.Find(d => d.SchoolId == okulID);
                     teacher.Okul = okul.First();
                     if (teacher.Unvan == 1)
-	                    newUser.Rol = (int)SG_DAL.Enums.EnumRol.ogretmen;
-	                else
+                        newUser.Rol = (int)SG_DAL.Enums.EnumRol.ogretmen;
+                    else
                         if (teacher.Unvan == 2 || teacher.Unvan == 3)
                             newUser.Rol = (int)SG_DAL.Enums.EnumRol.idareci;
 
@@ -70,8 +105,8 @@ namespace SG_BLL
             if (!retval.Equals(""))
             {
                 List<Teacher> ogretmenler = FileManager.ReadTeachersFromExcel(HttpContext.Current.Server.MapPath(retval));
-                
-                if(TeacherManager.addTeachers(ogretmenler))
+
+                if (TeacherManager.addTeachers(ogretmenler))
                     result = new Result(SystemRess.Messages.basarili_kayit.ToString(), SystemRess.Messages.basarili_durum.ToString());
             }
             else
@@ -91,8 +126,8 @@ namespace SG_BLL
 
                     foreach (var item in ogretmenler)
                         userRepository.Add(item);
-                        //db.Teacher.Add(item);
-                        //db.SaveChanges();
+                    //db.Teacher.Add(item);
+                    //db.SaveChanges();
                     return true;
                 }
                 catch (Exception)
@@ -116,17 +151,18 @@ namespace SG_BLL
             using (SGContext db = new SGContext())
             {
                 var list = (from ogtLer in db.Teacher
-                           join o in db.User on ogtLer.User.UserId equals o.UserId
-                           where ogtLer.IsDeleted == false
-                           select new { 
-                                        Ad = o.Ad,
-                                        Soyad = o.Soyad,
-                                        TCKimlik = o.TCKimlik,
-                                        Email = o.Email,
-                                        Tel = o.Tel,
-                                        Kidem = ogtLer.Kidem,
-                                        Unvan = ogtLer.Unvan
-                           }).ToList();
+                            join o in db.User on ogtLer.User.UserId equals o.UserId
+                            where ogtLer.IsDeleted == false
+                            select new
+                            {
+                                Ad = o.Ad,
+                                Soyad = o.Soyad,
+                                TCKimlik = o.TCKimlik,
+                                Email = o.Email,
+                                Tel = o.Tel,
+                                Kidem = ogtLer.Kidem,
+                                Unvan = ogtLer.Unvan
+                            }).ToList();
 
                 List<rptOgretmenListe> ogtler = new List<rptOgretmenListe>();
 
@@ -162,7 +198,7 @@ namespace SG_BLL
             }
         }
 
-        
+
         public static List<Teacher> GetTeacherListForSinav()
         {
             using (SGContext db = new SGContext())
@@ -173,7 +209,7 @@ namespace SG_BLL
                 {
                     list = db.Teacher.Include("User").Where(d => d.User.IsDeleted == false).ToList();
                 }
-                
+
                 return list;
             }
         }
@@ -182,7 +218,7 @@ namespace SG_BLL
         {
             using (SGContext db = new SGContext())
             {
-                var teacher = db.Teacher.Include("SinavGorevli").First(d => d.TeacherId == TeacherId);
+                var teacher = db.Teacher.Include("SinavGorevli").Include("Okul").First(d => d.TeacherId == TeacherId);
                 return teacher;
             }
         }
@@ -191,10 +227,65 @@ namespace SG_BLL
         {
             using (SGContext db = new SGContext())
             {
-                var teachers = db.Teacher.Include("User").Where(d=>d.Okul.SchoolId == okulID && (d.Unvan == (int)(SG_DAL.Enums.EnumUnvan.Mudur) || d.Unvan == (int)(SG_DAL.Enums.EnumUnvan.MudurYardimcisi)));
+                var teachers = db.Teacher.Include("User").Where(d => d.Okul.SchoolId == okulID && (d.Unvan == (int)(SG_DAL.Enums.EnumUnvan.Mudur) || d.Unvan == (int)(SG_DAL.Enums.EnumUnvan.MudurYardimcisi)));
                 return teachers.ToList();
             }
 
+        }
+
+        public static List<Teacher> GetTeacherListBySchoolId(int schID)
+        {
+            using (SGContext db = new SGContext())
+            {
+                var list = db.Teacher.Include("User").Include("Okul").Where(d => d.User.IsDeleted == false & d.SchoolId == schID).ToList();
+                return list;
+            }
+        }
+
+        public static Teacher GetTeacherByTCNo(long tcno)
+        {
+            using (SGContext db = new SGContext())
+            {
+                var list = db.Teacher.Include("User").Include("Okul").FirstOrDefault(d => d.User.TCKimlik == tcno);
+                return list;
+            }
+        }
+
+        public static void GenelBasvuruGuncelle(bool gnlBasvuru)
+        {
+            HttpCookie myCookie = new HttpCookie("LoginCookie");
+            myCookie = HttpContext.Current.Request.Cookies["LoginCookie"];
+            Int64 tcno = Convert.ToInt64(myCookie.Value.Split('=')[1].ToString());
+
+            using (SGContext db = new SGContext())
+            {
+                db.Teacher.Include("User").FirstOrDefault(d => d.User.TCKimlik == tcno).GenelBasvuru = gnlBasvuru;
+                db.SaveChanges();
+            }
+        }
+
+        public static Result SifreDegistir(string sifre)
+        {
+            HttpCookie myCookie = new HttpCookie("LoginCookie");
+            myCookie = HttpContext.Current.Request.Cookies["LoginCookie"];
+            long tcno = Convert.ToInt64(myCookie.Value.Split('=')[1].ToString());
+
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    User us = TeacherManager.GetTeacherByTCNo(tcno).User;
+                    us.Sifre = sifre;
+                    db.SaveChanges();
+                    result = new Result(SystemRess.Messages.basarili_kayit.ToString(), SystemRess.Messages.basarili_durum.ToString());
+                    return result;
+                }
+                catch (Exception)
+                {
+                    result = new Result(SystemRess.Messages.hatali_kayit.ToString(), SystemRess.Messages.hatali_durum.ToString());
+                    return result;
+                }
+            }
         }
     }
 }
