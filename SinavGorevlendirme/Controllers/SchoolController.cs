@@ -8,6 +8,7 @@ using SG_BLL;
 using SG_BLL.Tools;
 using SG_DAL.Entities;
 using SinavGorevlendirme.Filters;
+using SinavGorevlendirme.Models;
 using WebMatrix.WebData;
 
 namespace SinavGorevlendirme.Controllers
@@ -20,15 +21,16 @@ namespace SinavGorevlendirme.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            List<School> sc = SchoolManager.GetSchools();
+            CreateSchoolWrapperModel model = new CreateSchoolWrapperModel(new School(), sc);
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult Create(School school)
         {
             TempData["EventResult"] = SchoolManager.add(school);
-
-            return View();
+            return RedirectToAction("Create");
         }
 
         public ActionResult SchoolList()

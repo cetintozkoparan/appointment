@@ -118,48 +118,51 @@ namespace SinavGorevlendirme.Controllers
 
             var snvOtrOkl = SinavManager.GetSinavOturumOkullari(SinavOturumId);
 
+            var gorevliler = new List<SinavGorevli>();
+
             if (setting.GenelBasvuru)
             {
-                var gorevliler = SinavManager.GetSinavGorevliler(SinavOturumId, (int)SG_DAL.Enums.EnumSinavGorev.Gozetmen);
-
                 ogrt = TeacherManager.GetTeacherListForGenelBasvuru();
-
-                if (gorevliler.Count() > 0)
-                {
-                    foreach (var item in ogrt)
-                    {
-                        var tekgorevli = SinavManager.GetSinavGorevli(SinavOturumId, item.TeacherId);
-
-                        if (tekgorevli == null)
-                        {
-                            tekgorevli = new SinavGorevli();
-                            tekgorevli.SiraNo = 9999999;
-                        }
-                        item.SinavGorevli = tekgorevli;
-                    }
-                    ogrt = ogrt.OrderBy(d => d.SinavGorevli.SiraNo).ToList();
-                }
-                else
-                {
-                    if (setting.GozetmenSiralama1 != 0)
-                        sortlist += "[" + setting.GozetmenSiralama1 + ",0], ";
-
-                    if (setting.GozetmenSiralama2 != 0)
-                        sortlist += "[" + setting.GozetmenSiralama2 + ",0], ";
-
-                    if (setting.GozetmenSiralama3 != 0)
-                        sortlist += "[" + setting.GozetmenSiralama3 + ",0], ";
-
-                    if (sortlist != string.Empty)
-                    {
-                        sortlist = sortlist.Substring(0, sortlist.Length - 2);
-                    }
-                }
             }
             else
             {
-                ogrt = TeacherManager.GetTeacherList();
+                ogrt = TeacherManager.GetTeacherListForOzelBasvuru(SinavOturumId);
             }
+            
+            gorevliler = SinavManager.GetSinavGorevliler(SinavOturumId, (int)SG_DAL.Enums.EnumSinavGorev.Gozetmen);
+
+            if (gorevliler.Count() > 0)
+            {
+                foreach (var item in ogrt)
+                {
+                    var tekgorevli = SinavManager.GetSinavGorevli(SinavOturumId, item.TeacherId);
+
+                    if (tekgorevli == null)
+                    {
+                        tekgorevli = new SinavGorevli();
+                        tekgorevli.SiraNo = 9999999;
+                    }
+                    item.SinavGorevli = tekgorevli;
+                }
+                ogrt = ogrt.OrderBy(d => d.SinavGorevli.SiraNo).ToList();
+            }
+            else
+            {
+                if (setting.GozetmenSiralama1 != 0)
+                    sortlist += "[" + setting.GozetmenSiralama1 + ",0], ";
+
+                if (setting.GozetmenSiralama2 != 0)
+                    sortlist += "[" + setting.GozetmenSiralama2 + ",0], ";
+
+                if (setting.GozetmenSiralama3 != 0)
+                    sortlist += "[" + setting.GozetmenSiralama3 + ",0], ";
+
+                if (sortlist != string.Empty)
+                {
+                    sortlist = sortlist.Substring(0, sortlist.Length - 2);
+                }
+            }
+
             ViewBag.SortList = sortlist;
 
             var model = new SinavGorevlendirmeWrapperModel(ogrt, sinavokullar, oturum, setting, snvOtrOkl);
@@ -268,7 +271,7 @@ namespace SinavGorevlendirme.Controllers
             }
 
             var komisyonGorevliler = SinavManager.GetSinavOkulKomisyonGorevliler(snvOturmId, okulID);
-            int goreveliIndex = 1;
+            //int goreveliIndex = 1;
 
             var baskan = SinavManager.GetSinavOkulKomisyonGorevliler(snvOturmId, okulID, (int)SG_DAL.Enums.EnumSinavGorev.BinaSinavKomisyonuBaskani);
 

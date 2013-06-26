@@ -146,6 +146,15 @@ namespace SG_BLL
             }
         }
 
+        public static List<Teacher> GetTeacherList(SG_DAL.Enums.EnumUnvan unvan)
+        {
+            using (SGContext db = new SGContext())
+            {
+                var list = db.Teacher.Include("User").Include("Okul").Where(d => d.User.IsDeleted == false && d.Unvan == (int)unvan).ToList();
+                return list;
+            }
+        }
+
         public static List<rptOgretmenListe> GetTeacherListForReport()
         {
             using (SGContext db = new SGContext())
@@ -218,7 +227,7 @@ namespace SG_BLL
         {
             using (SGContext db = new SGContext())
             {
-                var teacher = db.Teacher.Include("SinavGorevli").Include("Okul").First(d => d.TeacherId == TeacherId);
+                var teacher = db.Teacher.Include("User").Include("SinavGorevli").Include("Okul").First(d => d.TeacherId == TeacherId);
                 return teacher;
             }
         }
@@ -285,6 +294,37 @@ namespace SG_BLL
                     result = new Result(SystemRess.Messages.hatali_kayit.ToString(), SystemRess.Messages.hatali_durum.ToString());
                     return result;
                 }
+            }
+        }
+
+        public static List<Teacher> GetTeacherListForOzelBasvuru(int SinavOturumId)
+        {
+            using (SGContext db = new SGContext())
+            {
+                var listo = db.Teacher.Include("SinavBasvuru")
+                                      .Include("User")
+                                      .Include("Okul")
+                                      .Where(d => d.SinavBasvuru.FirstOrDefault(f=>f.SinavOturumId == SinavOturumId && f.TeacherId == d.TeacherId).SinavOturumId == SinavOturumId)
+                                      .ToList();
+
+
+
+                var temp = db.SinavGorevli.Where(d => d.SinavOturumId == SinavOturumId && d.SinavGorevId == (int)SG_DAL.Enums.EnumSinavGorev.Gozetmen);
+
+                if (temp.Count() > listo.Count())
+                {
+                    List<Teacher> tchList = new List<Teacher>();
+
+                    foreach (var item in temp)
+                    {
+                        Teacher tcm = TeacherManager.GetTeacher(item.TeacherId);
+                        tchList.Add(tcm);
+                    }
+
+                    return tchList;
+                }
+
+                return listo;
             }
         }
     }

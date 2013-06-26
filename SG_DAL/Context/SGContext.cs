@@ -23,6 +23,7 @@ namespace SG_DAL.Context
         public DbSet<SinavDurum> SinavDurum { get; set; }
         public DbSet<Setting> Setting { get; set; }
         public DbSet<SinavOturumOkullari> SinavOturumOkullari { get; set; }
+        public DbSet<SinavBasvuru> SinavBasvuru { get; set; }
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -38,6 +39,7 @@ namespace SG_DAL.Context
             modelBuilder.Entity<SinavDurum>().ToTable("SinavDurum");
             modelBuilder.Entity<Setting>().ToTable("Setting");
             modelBuilder.Entity<SinavOturumOkullari>().ToTable("SinavOturumOkullari");
+            modelBuilder.Entity<SinavBasvuru>().ToTable("SinavBasvuru");
         }
     }
 }

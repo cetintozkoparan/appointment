@@ -40,7 +40,7 @@ else
 {
     
         <ul id="myTab" class="nav nav-tabs">
-            <li><a href="#home" data-toggle="tab">ONAYA AÇILMIŞ SINAVLAR</a></li>
+            <li><a href="#home" data-toggle="tab">AÇILMIŞ SINAVLAR</a></li>
             @*<li><a href="#profile" data-toggle="tab">ONAYA AÇILMAMIŞ SINAVLAR</a></li>*@
         </ul>
     
@@ -74,7 +74,13 @@ else
                             @trk.DateTimeFormat.DayNames[(int)(Convert.ToDateTime(item.Tarih).DayOfWeek)]
                         </td>
                         <td style="text-align: center">
-                            <span class="label label-success">BAŞVUR </span>
+                            @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                            {
+                                if (((FormsIdentity)HttpContext.Current.User.Identity).Ticket.UserData == "ogretmen")
+                                { 
+                                    <a href="/sinav/basvur"><span class="label label-success">BAŞVUR </span></a>
+                                }
+                            }
                             @*<a href="/yonetim/sinavgorevlendirme/@item.SinavOturumId">Düzenle</a>*@
                         </td>
                     </tr>    

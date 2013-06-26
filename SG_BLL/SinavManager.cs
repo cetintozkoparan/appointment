@@ -235,6 +235,9 @@ namespace SG_BLL
                                 db.SinavGorevli.Add(gorevli);
                                 db.SaveChanges();
                             }
+                            else {
+                                continue;
+                            }
 
                             var mdryrd = idareciler.FirstOrDefault(d => d.Unvan == (int)SG_DAL.Enums.EnumUnvan.MudurYardimcisi);
                             if (mdryrd != null)
@@ -244,7 +247,18 @@ namespace SG_BLL
                                 gorevli.SiraNo = 1;
                                 gorevli.TeacherId = Convert.ToInt32(mdryrd.TeacherId);
                                 gorevli.SchoolId = item.SchoolId;
-                                gorevli.SinavGorevId = (int)SG_DAL.Enums.EnumSinavGorev.BinaSinavKomisyonuBaskani;
+                                gorevli.SinavGorevId = (int)SG_DAL.Enums.EnumSinavGorev.BinaSinavKomisyonuUyesi;
+                                db.SinavGorevli.Add(gorevli);
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                                var gorevli = new SinavGorevli();
+                                gorevli.SinavOturumId = Convert.ToInt32(snvOturmId);
+                                gorevli.SiraNo = 1;
+                                gorevli.TeacherId = Convert.ToInt32(mdr.TeacherId);
+                                gorevli.SchoolId = item.SchoolId;
+                                gorevli.SinavGorevId = (int)SG_DAL.Enums.EnumSinavGorev.BinaSinavKomisyonuUyesi;
                                 db.SinavGorevli.Add(gorevli);
                                 db.SaveChanges();
                             }
@@ -257,7 +271,18 @@ namespace SG_BLL
                                 gorevli.SiraNo = 1;
                                 gorevli.TeacherId = Convert.ToInt32(mdryrd.TeacherId);
                                 gorevli.SchoolId = item.SchoolId;
-                                gorevli.SinavGorevId = (int)SG_DAL.Enums.EnumSinavGorev.BinaSinavKomisyonuBaskani;
+                                gorevli.SinavGorevId = (int)SG_DAL.Enums.EnumSinavGorev.BinaSinavKomisyonuUyesi;
+                                db.SinavGorevli.Add(gorevli);
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                                var gorevli = new SinavGorevli();
+                                gorevli.SinavOturumId = Convert.ToInt32(snvOturmId);
+                                gorevli.SiraNo = 1;
+                                gorevli.TeacherId = Convert.ToInt32(mdr.TeacherId);
+                                gorevli.SchoolId = item.SchoolId;
+                                gorevli.SinavGorevId = (int)SG_DAL.Enums.EnumSinavGorev.BinaSinavKomisyonuUyesi;
                                 db.SinavGorevli.Add(gorevli);
                                 db.SaveChanges();
                             }

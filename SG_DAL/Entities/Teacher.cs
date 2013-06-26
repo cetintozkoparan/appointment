@@ -16,7 +16,8 @@ namespace SG_DAL.Entities
         public int SchoolId { get; set; }
 
         public virtual SinavGorevli SinavGorevli { get; set; }
-        
+        public virtual ICollection<SinavBasvuru> SinavBasvuru { get; protected set; }
+
         public string Kidem { get; set; }
         public int Unvan { get; set; }
         public bool IsDeleted { get; set; }

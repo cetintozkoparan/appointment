@@ -5,6 +5,7 @@ using System.Linq;
 using System.Resources;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using SG_BLL;
 using SG_BLL.Tools;
 using SG_DAL.Entities;
@@ -128,9 +129,17 @@ namespace SinavGorevlendirme.Controllers
 
         [HttpPost]
         public ActionResult TeacherUpdate(User user, Teacher teacher)
-        { 
+        {
             TempData["EventResult"] = TeacherManager.updateTeacher(user, teacher);
-            return RedirectToAction("TeacherEditForIdari", "Teacher", new { OgretmenId = teacher.TeacherId });
+
+            if (((FormsIdentity)User.Identity).Ticket.UserData == "idareci")
+            {
+                return RedirectToAction("TeacherEditForIdari", "Teacher", new { OgretmenId = teacher.TeacherId });
+            }
+            else
+            {
+                return RedirectToAction("PersonelBilgi", "Teacher", new { OgretmenId = teacher.TeacherId });
+            }
         }
 
         [HttpGet]
@@ -310,6 +319,12 @@ namespace SinavGorevlendirme.Controllers
             //}
 
             return View(teacher);
+        }
+
+        public PartialViewResult _ogretmenler()
+        {
+            List<Teacher> teachers = TeacherManager.GetTeacherList(SG_DAL.Enums.EnumUnvan.Ogretmen);
+            return PartialView(teachers);
         }
     }
 }

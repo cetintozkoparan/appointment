@@ -148,6 +148,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateSchoolWrapperModel.cs" />
+    <Compile Include="Models\CreateTeacherWrapperModel.cs" />
     <Compile Include="Models\SinavKatilimWrapperModel.cs" />
     <Compile Include="Models\SinavGorevlendirmeWrapperModel.cs" />
     <Compile Include="Models\SinavWrapperModel.cs" />
@@ -457,6 +459,7 @@
     <Content Include="Views\Sinav\KatilimListesi.cshtml" />
     <Content Include="Views\Teacher\TeacherEditForIdari.cshtml" />
     <Content Include="Views\Teacher\PersonelBilgi.cshtml" />
+    <Content Include="Views\Shared\_ogretmenler.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

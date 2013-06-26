@@ -32,7 +32,7 @@
         </ul>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane active" id="bilgi" style="border: 1px solid #dedede; overflow: hidden; padding: 10px 20px 10px 20px">
-                @using (Html.BeginForm("CreateTeacherForIdari", "Teacher", FormMethod.Post, new { id = "registerform", @class = "pageform form-horizontal" }))
+                @using (Html.BeginForm("TeacherUpdate", "Teacher", FormMethod.Post, new { id = "registerform", @class = "pageform form-horizontal" }))
                 {
                     <div style="width: 300px; float: left; border-right: 1px solid #cbcbcb;">
                         @Html.ValidationSummary(true)
@@ -56,8 +56,9 @@
                     <div style="width: 300px; float: left; padding-left: 20px; height: 100%; border-right: 1px solid #dedede; height: 350px">
                         <label>Okul</label>
 
-                        @Html.DropDownListFor(d => d.teacher.Okul.SchoolId, (IEnumerable<SelectListItem>)ViewBag.SchoolList, null, new { @class = "required" })
-
+                        @Html.DropDownListFor(d => d.teacher.SchoolId, (IEnumerable<SelectListItem>)ViewBag.SchoolList, null, new { @class = "required" })
+                        @Html.HiddenFor(d => d.teacher.TeacherId)
+                        @Html.HiddenFor(d => d.user.UserId)
                         <label>Kıdem</label>
                         <span>@Model.teacher.Kidem</span>
                         @Html.HiddenFor(d => d.teacher.Kidem)

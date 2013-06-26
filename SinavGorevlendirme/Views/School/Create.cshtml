@@ -1,36 +1,81 @@
-﻿@model SG_DAL.Entities.School
+﻿@model SinavGorevlendirme.Models.CreateSchoolWrapperModel
 @{
     ViewBag.Title = "School";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="modal-header">
-        <h3>Okul Kaydı</h3>
-    </div>
-    <div class="modal-body">
-        <div class="well">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#create" data-toggle="tab">Okul Kaydet</a></li>
-            </ul>
-            <div id="myTabContent" class="tab-content">
-                <div class="tab-pane active" id="create">
-                   
-                    @using (Html.BeginForm("Create", "School", FormMethod.Post, new { id = "registerform", @class = "pageform" }))
-                    {
-                        @Html.ValidationSummary(true)
-                        <label>Ad</label>
-                        @Html.TextBoxFor(m => m.Ad, null, new { @class = "required input-xxlarge" })
-                        @Html.ValidationMessageFor(m => m.Ad)
+    <h3>Okul Kaydı</h3>
+</div>
+<div class="modal-body">
+    <div class="well">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#create" data-toggle="tab">Okul Kaydet</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane active" id="create">
 
-                        <label>MEB Kodu</label>
-                        @Html.TextBoxFor(m => m.MebKodu, null, new { @class = "required" })
-                        @Html.ValidationMessageFor(m => m.MebKodu)
+                @using (Html.BeginForm("Create", "School", FormMethod.Post, new { id = "registerform", @class = "pageform" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <label>Ad</label>
+                    @Html.TextBoxFor(m => m.school.Ad, null, new { @class = "required input-xxlarge" })
+                    @Html.ValidationMessageFor(m => m.school.Ad)
 
-                        <div>
-                            <button class="btn btn-primary">Kaydet</button>
-                        </div>
-                    }
-                </div>
+                    <label>MEB Kodu</label>
+                    @Html.TextBoxFor(m => m.school.MebKodu, null, new { @class = "required" })
+                    @Html.ValidationMessageFor(m => m.school.MebKodu)
+
+                    <div>
+                        <button class="btn btn-primary">Kaydet</button>
+                    </div>
+                }
             </div>
         </div>
+    </div><br />
+    <div class="well">
+        <script>
+            $(function () {
+                $("table#okullistesi").tablesorter({
+                    theme: "bootstrap",
+                    widthFixed: true,
+                    headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+                    widgets: ["uitheme", "filter", "zebra"],
+                    widgetOptions: {
+                        zebra: ["even", "odd"],
+                        filter_reset: ".reset"
+                    }
+                });
+            });
+        </script>
+        <h3>Okul Listesi</h3>
+        @{ int i = 0;}
+        <table id="okullistesi" class="tablesorter">
+            <thead>
+                <tr>
+                    <th>No
+                    </th>
+                    <th>Okul Adı
+                    </th>
+                    <th>MEB Kodu
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.schools)
+                {
+                    <tr>
+                        <td style="width: 20px; text-align: center">@(++i)
+                        </td>
+                        <td>@item.Ad
+                        </td>
+                        <td>@item.MebKodu
+                        </td>
+                    </tr>    
+                }
+
+            </tbody>
+        </table>
+
     </div>
+</div>

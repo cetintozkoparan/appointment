@@ -51,6 +51,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SinavGorevlendirmeDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Entities\SinavBasvuru.cs" />
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\SinavDurum.cs" />
     <Compile Include="Entities\School.cs" />
