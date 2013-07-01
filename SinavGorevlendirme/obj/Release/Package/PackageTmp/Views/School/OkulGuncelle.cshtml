@@ -1,0 +1,36 @@
+﻿@model SG_DAL.Entities.School
+@{
+    ViewBag.Title = "Okul Güncelleme";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="modal-header">
+    <h3>Okul Güncelle</h3>
+</div>
+<div class="modal-body">
+    <div class="well">
+        @*<ul class="nav nav-tabs nav-pages" id="ogrtab">
+            <li class="active"><a href="#create" data-toggle="tab">Okul Güncelle</a></li>
+        </ul>*@
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane active" id="create" style="border: 1px solid #dedede; overflow: hidden; padding: 10px 20px 10px 20px">
+
+                @using (Html.BeginForm("OkulGuncelle", "School", FormMethod.Post, new { id = "registerform", @class = "pageform" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <label>Ad</label>
+                    @Html.TextBoxFor(m => m.Ad, null, new { @class = "required input-xxlarge" })
+                    @Html.ValidationMessageFor(m => m.Ad)
+
+                    <label>MEB Kodu</label>
+                    @Html.TextBoxFor(m => m.MebKodu, null, new { @class = "required" })
+                    @Html.ValidationMessageFor(m => m.MebKodu)
+
+                    <div>
+                        <button class="btn btn-primary">Güncelle</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

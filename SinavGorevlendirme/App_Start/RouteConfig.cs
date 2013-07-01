@@ -35,7 +35,10 @@ namespace SinavGorevlendirme
 
             routes.MapRoute("sinavkatilimlistesi", "yonetim/KatilimListesi/{SinavOturumId}", new { action = "KatilimListesi", Controller = "Sinav" });
             routes.MapRoute("ogretmeneditidari", "idari/ogretmen/{OgretmenId}", new { action = "TeacherEditForIdari", Controller = "Teacher" });
+            routes.MapRoute("ogretmenedyonetim", "yonetim/ogretmen/{OgretmenId}", new { action = "TeacherEdit", Controller = "Teacher" });
+            //routes.MapRoute("ogretmensilyonetim", "yonetim/ogretmensil/{OgretmenId}", new { action = "OgretmenSil", Controller = "Teacher" });
             routes.MapRoute("ogretmenbilgi", "ogretmenbilgilerim", new { action = "PersonelBilgi", Controller = "Teacher" });
+            routes.MapRoute("yonetimokulguncelle", "yonetim/okul/{SchoolId}", new { action = "OkulGuncelle", Controller = "School" });
             
             routes.MapRoute(
                 name: "Default",

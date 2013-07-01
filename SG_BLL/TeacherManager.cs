@@ -327,5 +327,31 @@ namespace SG_BLL
                 return listo;
             }
         }
+
+        public static Result deleteTeacher(int OgretmenId)
+        {
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    var teacher = db.Teacher.Include("User").FirstOrDefault(d => d.TeacherId == OgretmenId);
+
+                    Repository<User> y = new Repository<User>(db);
+                    Repository<Teacher> x = new Repository<Teacher>(db);
+                    y.Delete(teacher.User);
+                    x.Delete(teacher);
+
+                    result = new Result("İşlem başarılı", SystemRess.Messages.basarili_durum.ToString());
+                    return result; 
+                
+                }
+                catch (Exception)
+                {
+                    result = new Result(SystemRess.Messages.hatali_kayit.ToString(), SystemRess.Messages.hatali_durum.ToString());
+                    return result; 
+                }
+                
+            }
+        }
     }
 }

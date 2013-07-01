@@ -28,11 +28,9 @@ namespace SinavGorevlendirme.Controllers
                 items.Add(new SinavDurumHelper((int)enmDurum, rm.GetString(enmDurum.ToString()), ""));
             }
 
-            var oturumlar = new List<SinavOturum>();
+            List<SinavOturum> basvuru = new List<SinavOturum>();
+            List<SinavOturum> gorevli = new List<SinavOturum>();
 
-            oturumlar = SinavManager.SinavListe((int)SG_DAL.Enums.EnumSinavDurum.OnaylanmisSinav);
-
-            var sinavlist = new SinavListeWrapperModel(new List<Sinav>(), oturumlar);
             if (User.Identity.IsAuthenticated)
             {
                 if (((FormsIdentity)User.Identity).Ticket.UserData == "ogretmen")
@@ -49,8 +47,17 @@ namespace SinavGorevlendirme.Controllers
                     {
                         ViewBag.isaretli = string.Empty;
                     }
+
+                    basvuru = SinavManager.GetOgretmenBasvurulari(tcm.TeacherId);
+                    gorevli = SinavManager.GetGorevliSinavlari(tcm.TeacherId);
                 }
             }
+
+            var oturumlar = new List<SinavOturum>();
+            oturumlar = SinavManager.GeyYayindaSinavListe((int)SG_DAL.Enums.EnumSinavDurum.OnaylanmisSinav);
+            
+            var ayar = SettingManager.GetSettings();
+            var sinavlist = new SinavListeWrapperModel(new List<Sinav>(), oturumlar, ayar, basvuru, gorevli);
             return View(sinavlist);
         }
 
@@ -58,6 +65,19 @@ namespace SinavGorevlendirme.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+       
+        public ActionResult Basvur(int SinavOturumId)
+        {
+            HttpCookie myCookie = new HttpCookie("LoginCookie");
+            myCookie = Request.Cookies["LoginCookie"];
+            Int64 tcno = Convert.ToInt64(myCookie.Value.Split('=')[1].ToString());
+            Teacher tcr = TeacherManager.GetTeacherByTCNo(tcno);
+            
+            TempData["BasvuruSonuc"] = SinavManager.SinavBasvur(SinavOturumId, tcr.TeacherId);
+            
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -98,6 +118,13 @@ namespace SinavGorevlendirme.Controllers
             var sinavlar = SinavManager.SinavListeByOturumDurum((int)SG_DAL.Enums.EnumSinavDurum.OnaylanmamisSinav);
             return PartialView(sinavlar);
         }
+
+        public PartialViewResult _kurumadi()
+        {
+            var ayar = SettingManager.GetSettings();
+            return PartialView(ayar);
+        }
+
 
         public ActionResult Logout()
         {

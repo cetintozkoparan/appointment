@@ -67,7 +67,7 @@ namespace SG_BLL
                                     case 1: teacher.User.Soyad = cellData;
                                         break;
                                     case 2: teacher.User.TCKimlik = Convert.ToInt64(cellData);
-                                            teacher.User.Sifre = cellData;
+                                        teacher.User.Sifre = cellData;
                                         break;
                                     case 3: teacher.User.Email = cellData;
                                         break;
@@ -98,9 +98,6 @@ namespace SG_BLL
             catch (Exception)
             {
                 return new List<Teacher>();
-                //Exception exception = ex;
-                //exception.Source = string.Format("Error occured on row {0} col {1}", rowNum, colNum);
-                //throw ex;
             }
         }
 
@@ -114,6 +111,73 @@ namespace SG_BLL
             else
             {
                 return "";
+            }
+        }
+
+        internal static List<School> ReadSchoolsFromExcel(string filePath)
+        {
+            var data = new StringBuilder();
+            try
+            {
+                Net.SourceForge.Koogra.IWorkbook wb = null;
+
+                string fileExt = Path.GetExtension(filePath);
+
+                if (string.IsNullOrEmpty(fileExt))
+                {
+                    throw new Exception("File extension not found");
+                }
+
+                if (fileExt.Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
+                {
+                    wb = Net.SourceForge.Koogra.WorkbookFactory.GetExcel2007Reader(filePath);
+                }
+                else if (fileExt.Equals(".xls", StringComparison.OrdinalIgnoreCase))
+                {
+                    wb = Net.SourceForge.Koogra.WorkbookFactory.GetExcelBIFFReader(filePath);
+                }
+
+                Net.SourceForge.Koogra.IWorksheet ws = wb.Worksheets.GetWorksheetByIndex(0);
+                List<School> list = new List<School>();
+
+                for (uint r = ws.FirstRow + 1; r <= ws.LastRow; ++r)
+                {
+                    Net.SourceForge.Koogra.IRow row = ws.Rows.GetRow(r);
+                    if (row != null)
+                    {
+                        School school = new School();
+                        
+                        for (uint colCount = ws.FirstCol; colCount <= ws.LastCol; ++colCount)
+                        {
+                            string cellData = string.Empty;
+
+                            if (row.GetCell(colCount) != null && row.GetCell(colCount).Value != null)
+                            {
+                                cellData = row.GetCell(colCount).Value.ToString();
+
+                                switch (colCount)
+                                {
+                                    case 0: school.Ad = cellData;
+                                        break;
+                                    case 1: school.MebKodu = Convert.ToInt32(cellData);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+
+                        if (school.MebKodu != 0)
+                        {
+                            list.Add(school);
+                        }
+                    }
+                }
+                return list;
+            }
+            catch (Exception)
+            {
+                return new List<School>();
             }
         }
     }

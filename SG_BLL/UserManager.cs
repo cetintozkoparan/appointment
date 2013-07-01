@@ -59,5 +59,14 @@ namespace SG_BLL
                 return usr.User;
             }
         }
+
+        public static User GetUserByTCNo(int TCNo)
+        {
+            using (SGContext db = new SGContext())
+            {
+                var usr = db.Teacher.Include("User").First(d => d.User.TCKimlik == TCNo);
+                return usr.User;
+            }
+        }
     }
 }

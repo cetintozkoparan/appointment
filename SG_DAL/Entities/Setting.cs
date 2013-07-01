@@ -16,5 +16,6 @@ namespace SG_DAL.Entities
         public int GozetmenSiralama1 { get; set; }
         public int GozetmenSiralama2 { get; set; }
         public int GozetmenSiralama3 { get; set; }
+        public string KurumAdi { get; set; }
     }
 }

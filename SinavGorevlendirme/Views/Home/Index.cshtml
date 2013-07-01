@@ -3,123 +3,233 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<div class="alert alert-block">
+    <a class="close" data-dismiss="alert">×</a>
+    Bu sistem Milli Eğitim Bakanlığının açmış olduğu sınavlarda öğretmenlerin daha adil ve doğru bir şekilde görevlendirmesini amaçlamaktadır.
+</div>
 @if (HttpContext.Current.User.Identity.IsAuthenticated)
 {
     if (((FormsIdentity)User.Identity).Ticket.UserData == "ogretmen")
-    {    
+    {
+        if (Model.ayar.GenelBasvuru)
+        {
+        
     <div class="alert alert-info">
         <a class="close" data-dismiss="alert">×</a>
-        @using (Html.BeginForm("BasvuruDurumGuncelle", "Home", FormMethod.Post, new { id = "registerform", @class = "pageform form-horizontal" }))
+        @using (Html.BeginForm("BasvuruDurumGuncelle", "Home", FormMethod.Post, new { id = "registerform", @class = "pageform form-horizontal", @style = "margin:0" }))
         {
             <input type="checkbox" name="gnlBasvuru" @ViewBag.isaretli style="margin: 0" class="checkbox" />
             if (DateTime.Now.Month > 6)
             {
-            <span style="line-height: 40px; margin-left: 10px">@string.Format("{0} - {1} Eğitim öğretim yılında yapılacak sınavlarda görev almak istiyorum.", DateTime.Now.Year, DateTime.Now.Year + 1)</span>
+            <span style="margin-left: 10px">@string.Format("{0} - {1} Eğitim öğretim yılında yapılacak sınavlarda görev almak istiyorum.", DateTime.Now.Year, DateTime.Now.Year + 1)</span>
             }
             else
             {
-            <span style="line-height: 40px; margin-left: 10px">@string.Format("{0} - {1} Eğitim öğretim yılında yapılacak sınavlarda görev almak istiyorum.", DateTime.Now.Year - 1, DateTime.Now.Year)</span>
+            <span style="margin-left: 10px">@string.Format("{0} - {1} Eğitim öğretim yılında yapılacak sınavlarda görev almak istiyorum.", DateTime.Now.Year - 1, DateTime.Now.Year)</span>
             }
 
             <input type="submit" class="btn btn-primary" style="margin-left: 10px;" value="Kaydet" />
         }
     </div>
-}
+        }
+    }
 
 }
-    @if (Model.sinavoturum.Count() == 0)
+@if (TempData["BasvuruSonuc"] != null)
 {
-        <div class="alert alert-warning">
-            <a class="close" data-dismiss="alert">×</a>
-            Şuan onaylanmış bir sınav bulunmamaktadır.
-        </div>
+    if ((bool)TempData["BasvuruSonuc"] != false)
+    { 
+    <div class="alert alert-success">
+        <a class="close" data-dismiss="alert">×</a>
+        Başvurunuz başarıyla alınmıştır...
+    </div>
+    }
+    else
+    {
+    <script>
+        $(function () {
+            alert("Bu sınava başvurunuz bulunmaktadır...");
+        });
 
+    </script>
+    }
 }
-else
-{
-    
-        <ul id="myTab" class="nav nav-tabs">
-            <li><a href="#home" data-toggle="tab">AÇILMIŞ SINAVLAR</a></li>
-            @*<li><a href="#profile" data-toggle="tab">ONAYA AÇILMAMIŞ SINAVLAR</a></li>*@
-        </ul>
-    
-        <table class="table table-striped table-hover table-bordered tablesorter-bootstrap">
-            <thead>
-                <tr>
-                    <th style="padding: 12px">SINAV ADI</th>
-                    <th style="padding: 12px">OTURUM</th>
-                    <th style="padding: 12px">SINAV TARİHİ</th>
-                    <th style="padding: 12px">SINAV SAATİ</th>
-                    <th style="padding: 12px">OTURUM GÜNÜ</th>
-                    <th style="padding: 12px"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-    System.Globalization.CultureInfo trk = new System.Globalization.CultureInfo("tr-TR");
-                }
-                @foreach (var item in Model.sinavoturum)
-            {
-                    <tr>
-                        <td>@item.Sinav.SinavAdi
-                        </td>
-                        <td style="text-align: center">
-                            @(item.OturumNo + ". Oturum")
-                        </td>
-                        <td style="text-align: center">@Convert.ToDateTime(item.Tarih).ToShortDateString()
-                        </td>
-                        <td style="text-align: center">@item.Saat</td>
-                        <td style="text-align: center">
-                            @trk.DateTimeFormat.DayNames[(int)(Convert.ToDateTime(item.Tarih).DayOfWeek)]
-                        </td>
-                        <td style="text-align: center">
-                            @if (HttpContext.Current.User.Identity.IsAuthenticated)
-                            {
-                                if (((FormsIdentity)HttpContext.Current.User.Identity).Ticket.UserData == "ogretmen")
-                                { 
-                                    <a href="/sinav/basvur"><span class="label label-success">BAŞVUR </span></a>
-                                }
-                            }
-                            @*<a href="/yonetim/sinavgorevlendirme/@item.SinavOturumId">Düzenle</a>*@
-                        </td>
-                    </tr>    
+
+
+<ul class="nav nav-tabs nav-pages" id="myTab">
+    <li class="active"><a href="#liste" data-toggle="tab">AÇILMIŞ SINAVLAR</a></li>
+    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        if (((FormsIdentity)User.Identity).Ticket.UserData == "ogretmen")
+        {
+            if (!@Model.ayar.GenelBasvuru){
+                <li><a href="#basvuru" data-toggle="tab">BAŞVURDUĞUM SINAVLAR</a></li>
             }
+        <li><a href="#gorevli" data-toggle="tab">GÖREV ALDIĞIM SINAVLAR</a></li>
+        }
+    }
+</ul>
+<div class="modal-body">
+    @{
+        System.Globalization.CultureInfo trk = new System.Globalization.CultureInfo("tr-TR");
+    }
 
-                @*<tr>
-            <td>MOTORLU TAŞIT SÜRÜCÜ ADAYLARI SINAVI (2012-2)</td>
-            <td>CUMARTESİ</td>
-            <td>14.04.2012</td>
-            <td>11:00</td>
-            <td><span class="label label-success">BAŞVUR </span></td>
-        </tr>
-        <tr>
-            <td>8. SINIF SEVİYE BELİRLEME SINAVI</td>
-            <td>CUMARTESİ</td>
-            <td>14.04.2012</td>
-            <td>11:00</td>
-            <td><span class="label label-success">BAŞVUR </span></td>
-        </tr>
-        <tr>
-            <td>P.Y. VE BURS. SINAVI(5,6,7,9 VE 11. SINIF)</td>
-            <td>CUMARTESİ</td>
-            <td>14.04.2012</td>
-            <td>11:00</td>
-            <td><span class="label label-success">BAŞVUR </span></td>
-        </tr>
-        <tr>
-            <td>AÇIKÖĞRETİM LİSESİ 2. DÖNEM SINAVI (3. OTURUM)</td>
-            <td>CUMARTESİ</td>
-            <td>14.04.2012</td>
-            <td>11:00</td>
-            <td><span class="label label-success">BAŞVUR </span></td>
-        </tr>*@
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane active" id="liste" style="border: 1px solid #dedede; overflow: hidden; padding: 10px 20px 10px 20px">
+            @if (Model.sinavoturum.Count == 0)
+            {
+                <div class="alert alert-warning" style="margin-top: 20px;">
+                    <a class="close" data-dismiss="alert">×</a>
+                    Yayında olan sınav bulunmamakta...
+                </div>
+            }
+            else
+            {
+                <table class="table table-striped table-hover table-bordered tablesorter-bootstrap">
+                    <thead>
+                        <tr>
+                            <th style="padding: 12px">SINAV ADI</th>
+                            <th style="padding: 12px; text-align: center">OTURUM</th>
+                            <th style="padding: 12px; text-align: center">SINAV TARİHİ</th>
+                            <th style="padding: 12px; text-align: center">SINAV SAATİ</th>
+                            <th style="padding: 12px; text-align: center">OTURUM GÜNÜ</th>
+                            <th style="padding: 12px; text-align: center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-            </tbody>
-        </table>
-        <script>
-            $(function () {
-                $('#myTab a:first').tab('show');
-            })
-        </script>
-}
+                        @foreach (var item in Model.sinavoturum)
+                        {
+                            <tr>
+                                <td>@item.Sinav.SinavAdi
+                                </td>
+                                <td style="text-align: center">
+                                    @(item.OturumNo + ". Oturum")
+                                </td>
+                                <td style="text-align: center">@Convert.ToDateTime(item.Tarih).ToShortDateString()
+                                </td>
+                                <td style="text-align: center">@item.Saat</td>
+                                <td style="text-align: center">
+                                    @trk.DateTimeFormat.DayNames[(int)(Convert.ToDateTime(item.Tarih).DayOfWeek)]
+                                </td>
+                                <td style="text-align: center">
+                                    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                                    {
+                                        if (((FormsIdentity)HttpContext.Current.User.Identity).Ticket.UserData == "ogretmen")
+                                        {
+                                            if (!@Model.ayar.GenelBasvuru)
+                                            {
+                                                <span class='label label-success' style="padding: 5px;">
+                                                @*@Ajax.ActionLink("DiaplyName", "Action", new { parameters to post }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, OnComplete="reload();"})*@
+                                                @Ajax.ActionLink("Başvur", "Basvur", new { SinavOturumId = @item.SinavOturumId }, new AjaxOptions
+                                                   {
+                                                       HttpMethod = "POST",
+                                                       UpdateTargetId = "divResultText",
+                                                       LoadingElementId = "divLoading",
+                                                       OnSuccess = "myCallback"
+                                                   }, new { @style = "color:#fff;" })</span>
+                                                }
+                                        }
+                                    }
+                                </td>
+                            </tr>    
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+        <div class="tab-pane" id="basvuru" style="border: 1px solid #dedede; overflow: hidden; padding: 10px 20px 10px 20px">
+            @if (Model.sinavoturumbasvuru.Count == 0)
+            {
+                <div class="alert alert-warning" style="margin-top: 20px;">
+                    <a class="close" data-dismiss="alert">×</a>
+                    Başvurmuş olduğunuz sınav bulunmamakta...
+                </div>
+            }
+            else
+            {
+                <table class="table table-striped table-hover table-bordered tablesorter-bootstrap">
+                    <thead>
+                        <tr>
+                            <th style="padding: 12px; text-align: left">SINAV ADI</th>
+                            <th style="padding: 12px; text-align: center">OTURUM</th>
+                            <th style="padding: 12px; text-align: center">SINAV TARİHİ</th>
+                            <th style="padding: 12px; text-align: center">SINAV SAATİ</th>
+                            <th style="padding: 12px; text-align: center">OTURUM GÜNÜ</th>
+                            <th style="padding: 12px; text-align: center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.sinavoturumbasvuru)
+                        {
+                            <tr>
+                                <td>@item.Sinav.SinavAdi
+                                </td>
+                                <td style="text-align: center">
+                                    @(item.OturumNo + ". Oturum")
+                                </td>
+                                <td style="text-align: center">@Convert.ToDateTime(item.Tarih).ToShortDateString()
+                                </td>
+                                <td style="text-align: center">@item.Saat</td>
+                                <td style="text-align: center">
+                                    @trk.DateTimeFormat.DayNames[(int)(Convert.ToDateTime(item.Tarih).DayOfWeek)]
+                                </td>
+                                <td style="text-align: center"></td>
+                            </tr>    
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+        <div class="tab-pane" id="gorevli" style="border: 1px solid #dedede; overflow: hidden; padding: 10px 20px 10px 20px">
+            @if (Model.sinavoturumgorevli.Count == 0)
+            {
+                <div class="alert alert-warning" style="margin-top: 20px;">
+                    <a class="close" data-dismiss="alert">×</a>
+                    Görev aldığınız sınav bulunmamakta...
+                </div>
+            }
+            else
+            {
+                <table class="table table-striped table-hover table-bordered tablesorter-bootstrap">
+                    <thead>
+                        <tr>
+                            <th style="padding: 12px; text-align: left">SINAV ADI</th>
+                            <th style="padding: 12px; text-align: center">OTURUM</th>
+                            <th style="padding: 12px; text-align: center">SINAV TARİHİ</th>
+                            <th style="padding: 12px; text-align: center">SINAV SAATİ</th>
+                            <th style="padding: 12px; text-align: center">OTURUM GÜNÜ</th>
+                            <th style="padding: 12px; text-align: center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.sinavoturumgorevli)
+                        {
+                            <tr>
+                                <td>@item.Sinav.SinavAdi
+                                </td>
+                                <td style="text-align: center">
+                                    @(item.OturumNo + ". Oturum")
+                                </td>
+                                <td style="text-align: center">@Convert.ToDateTime(item.Tarih).ToShortDateString()
+                                </td>
+                                <td style="text-align: center">@item.Saat</td>
+                                <td style="text-align: center">
+                                    @trk.DateTimeFormat.DayNames[(int)(Convert.ToDateTime(item.Tarih).DayOfWeek)]
+                                </td>
+                                <td style="text-align: center"></td>
+                            </tr>    
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#myTab a:first').tab('show');
+    })
+</script>
+

@@ -33,5 +33,13 @@ namespace SinavGorevlendirme.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult KurumGuncelle(Setting settings)
+        {
+            TempData["EventResult"] = SettingManager.UpdateKurumAdi(settings);
+
+            return RedirectToAction("Index");
+        }
     }
 }

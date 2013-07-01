@@ -198,7 +198,9 @@
     <Content Include="Content\fonts\titillium\SIL Open Font License 1.1.txt" />
     <Content Include="Content\fonts\titillium\stylesheet.css" />
     <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\ataBayrak.png" />
     <Content Include="Content\images\b.png" />
+    <Content Include="Content\images\banner_Back.jpg" />
     <Content Include="Content\images\bbg.gif" />
     <Content Include="Content\images\bbgs.gif" />
     <Content Include="Content\images\bendl.gif" />
@@ -363,7 +365,7 @@
     <Content Include="Content\fonts\titillium\Titillium_title03.eot" />
     <Content Include="Content\fonts\titillium\Titillium_title03.ttf" />
     <Content Include="Content\files\Sablonlar\ornek_ogretmen_sablon.xls" />
-    <Content Include="a.pdf" />
+    <Content Include="Content\files\Sablonlar\ornek_okul_sablon.xls" />
     <None Include="Properties\PublishProfiles\gorev-ftp.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -460,6 +462,9 @@
     <Content Include="Views\Teacher\TeacherEditForIdari.cshtml" />
     <Content Include="Views\Teacher\PersonelBilgi.cshtml" />
     <Content Include="Views\Shared\_ogretmenler.cshtml" />
+    <Content Include="Views\Shared\_kurumadi.cshtml" />
+    <Content Include="Views\Teacher\TeacherEdit.cshtml" />
+    <Content Include="Views\School\OkulGuncelle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

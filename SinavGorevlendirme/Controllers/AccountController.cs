@@ -18,15 +18,19 @@ namespace SinavGorevlendirme.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!AccountManager.Login(user.TCKimlik, user.Sifre, false))
+                User us = AccountManager.Login(user.TCKimlik, user.Sifre);
+                if (us == null)
                 {
                     TempData["GirisBasarisiz"] = "true";
                 }
                 else
                 {
                     TempData["GirisBasarisiz"] = "false";
+                    if (us.IsAdmin == true)
+                        return RedirectToAction("SinavListe", "Sinav");
+                    else
+                        return RedirectToAction("Index", "Home");
                 }
-
                 return RedirectToAction("Index", "Home");
             }
             else

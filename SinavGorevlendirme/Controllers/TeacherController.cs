@@ -111,6 +111,20 @@ namespace SinavGorevlendirme.Controllers
             return RedirectToAction("CreateTeacherForIdari");
         }
 
+        public ActionResult OgretmenSil(int OgretmenId)
+        {
+            TempData["EventResult"] = TeacherManager.deleteTeacher(OgretmenId);
+
+            if (((FormsIdentity)User.Identity).Ticket.UserData == "idareci")
+            {
+                return RedirectToAction("TeacherListForIdari", "Teacher");
+            }
+            else
+            {
+                return RedirectToAction("TeacherList", "Teacher");
+            }
+        }
+
         [HttpPost]
         public ActionResult MultiCreateTeacherForIdari(HttpPostedFileBase uploadfile)
         {
@@ -136,10 +150,13 @@ namespace SinavGorevlendirme.Controllers
             {
                 return RedirectToAction("TeacherEditForIdari", "Teacher", new { OgretmenId = teacher.TeacherId });
             }
-            else
+            else if (((FormsIdentity)User.Identity).Ticket.UserData == "ogretmen")
             {
                 return RedirectToAction("PersonelBilgi", "Teacher", new { OgretmenId = teacher.TeacherId });
-            }
+            }else
+	        {
+                return RedirectToAction("TeacherEdit", "Teacher", new { OgretmenId = teacher.TeacherId });
+	        }
         }
 
         [HttpGet]
@@ -254,6 +271,46 @@ namespace SinavGorevlendirme.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult TeacherEdit(int OgretmenId)
+        {
+            
+            List<School> schList = SchoolManager.GetSchools();
+
+            var list = new SelectList(schList, "SchoolId", "Ad");
+
+            ViewBag.SchoolList = list;
+
+            var items = new List<UnvanHelper>();
+            ResourceManager rm = new ResourceManager("SinavGorevlendirme.Resources.Genel", typeof(TeacherController).Assembly);
+
+            Teacher tch = TeacherManager.GetTeacher(OgretmenId);
+            User usr = UserManager.GetUserByTeacherId(OgretmenId);
+
+            var Kidemler = new SelectList(new[]
+                                          {
+                                              new{Text="1",Value="1"},
+                                              new{Text="2",Value="2"},
+                                              new{Text="3",Value="3"},
+                                          },
+                            "Text", "Value", tch.Kidem);
+
+            ViewBag.Kidemler = Kidemler;
+
+            foreach (var unv in Enum.GetValues(typeof(EnumUnvan)))
+            {
+                items.Add(new UnvanHelper((int)unv, rm.GetString(unv.ToString())));
+            }
+
+            var unvanList = new SelectList(items, "UnvanId", "Unvan", tch.Unvan);
+
+            ViewBag.UnvanList = unvanList;
+
+            //School sch = SchoolManager.GetSchoolByTCNo(usr.TCKimlik);
+
+            TeacherWrapperModel model = new TeacherWrapperModel(usr, tch, new School());
+            return View(model);
+        }
         [HttpGet]
         public ActionResult CreateTeacherForIdari()
         {

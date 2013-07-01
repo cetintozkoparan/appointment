@@ -1,0 +1,143 @@
+﻿@model SinavGorevlendirme.Models.TeacherWrapperModel
+@{
+    ViewBag.Title = "CreateTeacher";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        $("#genelbasvuruhelp").tooltip({
+            'selector': '',
+            'placement': 'right'
+        });
+
+        $("#ddlUnvan").change(function () {
+            if ($(this).val() != 1) {
+                $('input[id=teacher_GenelBasvuru]').attr('checked', false);
+                $('input[id=teacher_GenelBasvuru]').attr('disabled', 'disabled');
+            } else {
+                $('input[id=teacher_GenelBasvuru]').removeAttr('disabled', 'disabled');
+            }
+            
+        });
+    });
+</script>
+<div class="modal-header">
+    <h3>Personel Güncelle</h3>
+</div>
+<div class="modal-body">
+    <div class="well">
+        <ul class="nav nav-tabs nav-pages" id="ogrtab">
+            <li class="active"><a href="#create" data-toggle="tab">Personel Kaydet</a></li>
+            <li><a href="#multicreate" data-toggle="tab">Excel'den Öğretmen Kaydı</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane active" id="create" style="border:1px solid #dedede; overflow:hidden; padding:10px 20px 10px 20px">
+                @using (Html.BeginForm("TeacherUpdate", "Teacher", FormMethod.Post, new { id = "registerform", @class = "pageform form-horizontal" }))
+                {
+                    <div style="width: 300px; float: left; border-right:1px solid #cbcbcb;">
+                        @Html.ValidationSummary(true)
+                        <label>Ad</label>
+                        @Html.TextBoxFor(m => m.user.Ad, null, new { @class = "input-xlarge required" })
+
+                        <label>Soyad</label>
+                        @Html.TextBoxFor(m => m.user.Soyad, null, new { @class = "input-xlarge required" })
+
+                        <label>TC Kimlik No</label>
+                        @Html.TextBoxFor(m => m.user.TCKimlik, null, new { @class = "input-xlarge required", @maxlength="11" })
+
+                        <label>Eposta</label>
+                        @Html.TextBoxFor(m => m.user.Email, null, new { @class = "input-xlarge" })
+
+                        <label>Telefon</label>
+                        @Html.TextBoxFor(m => m.user.Tel, null, new { @class = "input-xlarge" })
+                    </div>
+                    <div style="width: 300px; float: left; padding-left:20px; height:100%; border-right:1px solid #dedede; height:350px">
+                        <label>Okul</label>
+                        
+                        @Html.DropDownListFor(d => d.teacher.SchoolId, (IEnumerable<SelectListItem>)ViewBag.SchoolList, null, new { @class = "required" })
+                        
+                        @Html.HiddenFor(d => d.teacher.TeacherId)
+                        @Html.HiddenFor(d => d.user.UserId)
+                        <label>Kıdem</label>
+                        @*@Html.DropDownListFor(m => m.teacher.Kidem, (IEnumerable<SelectListItem>)ViewBag.Kidemler , new { @class = "" })*@
+                        @Html.DropDownListFor(m => m.teacher.Kidem, new[] {
+                            new SelectListItem{ Text= "1", Value="1" },
+                            new SelectListItem{ Text= "2", Value="2" },
+                            new SelectListItem{ Text= "3", Value="3" },
+                            new SelectListItem{ Text= "4", Value="4" },
+                            new SelectListItem{ Text= "5", Value="5" },
+                            new SelectListItem{ Text= "6", Value="6" },
+                            new SelectListItem{ Text= "7", Value="7" },
+                            new SelectListItem{ Text= "8", Value="8" },
+                            new SelectListItem{ Text= "9", Value="9" },
+                            new SelectListItem{ Text= "10", Value="10" },
+                            new SelectListItem{ Text= "11", Value="11" },
+                            new SelectListItem{ Text= "12", Value="12" },
+                            new SelectListItem{ Text= "13", Value="13" },
+                            new SelectListItem{ Text= "14", Value="14" },
+                            new SelectListItem{ Text= "15", Value="15" },
+                            new SelectListItem{ Text= "16", Value="16" },
+                            new SelectListItem{ Text= "17", Value="17" },
+                            new SelectListItem{ Text= "18", Value="18" },
+                            new SelectListItem{ Text= "19", Value="19" },
+                            new SelectListItem{ Text= "20", Value="20" },
+                            new SelectListItem{ Text= "21", Value="21" },
+                            new SelectListItem{ Text= "22", Value="22" },
+                            new SelectListItem{ Text= "23", Value="23" },
+                            new SelectListItem{ Text= "24", Value="24" },
+                            new SelectListItem{ Text= "25", Value="25" },
+                            new SelectListItem{ Text= "26", Value="26" },
+                            new SelectListItem{ Text= "27", Value="27" },
+                            new SelectListItem{ Text= "28", Value="28" },
+                            new SelectListItem{ Text= "29", Value="29" },
+                            new SelectListItem{ Text= "30", Value="30" }
+                         }, new { @class = "" })
+                        
+                        <label>Ünvan</label>
+                        @Html.DropDownListFor(d => d.teacher.Unvan, (IEnumerable<SelectListItem>)ViewBag.UnvanList, null, new { @class = "required", @id="ddlUnvan" })
+
+                        <div style="margin-top: 20px" class="control-group">
+                            <label class="control-label" style="width: 230px; margin-top: 0; text-align: left;">Genel Başvuru Havuzuna Ekle</label>
+                            <div class="controls">
+                                @Html.CheckBoxFor(m => m.teacher.GenelBasvuru,
+                            new { @class = "", @style = "text-align:center;" })
+                                @Html.ValidationMessageFor(m => m.teacher.GenelBasvuru)
+                                <a href="#" rel="tooltip" title="Öğretmen Genel başvuru havuzuna eklenir ve sınav görevlendirmelerinde yer alabilir." id="genelbasvuruhelp">
+                                    <img style="margin: 3px auto auto 20px; cursor: pointer" src="~/Content/images/question.png" />
+                                </a>
+                            </div>
+                        </div>
+
+                    <div>
+                        <button class="btn btn-primary">Kaydet</button>
+                    </div>
+                    </div>
+                   
+                   
+                }
+            </div>
+            <div class="tab-pane" id="multicreate">
+
+                @using (Html.BeginForm("MultiCreateTeacher", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data", id = "registerform2", @class = "pageform" }))
+                {
+                    <span>
+                        <a href="~/Content/files/Sablonlar/ornek_ogretmen_sablon.xls">
+                            <img src="~/Content/images/icons/xls.png" />
+                            Örnek Excel şablonunu indirmek için tıklayınız</a></span>
+                    <br />
+                    <br />
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <div class="input-append">
+                            <div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i><span class="fileupload-preview"></span></div>
+                            <span class="btn btn-file"><span class="fileupload-new">Excel Dosyası Seçiniz</span><span class="fileupload-exists">Değiştir</span>
+                                <input type="file" name="uploadfile" id="uploadfile" />
+                            </span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Kaldır</a>
+                        </div>
+                    </div>
+                    
+                    <input type="submit" class="btn btn-primary" value="Kaydet" name="btnXlsGonder" id="btnXlsGonder" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

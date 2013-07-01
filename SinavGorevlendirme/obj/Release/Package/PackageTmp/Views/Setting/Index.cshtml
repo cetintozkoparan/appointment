@@ -43,6 +43,7 @@ Aşağıdaki satır sayfaya eklenir:
         <ul class="nav nav-tabs nav-pages" id="ogrtab">
             <li class="active"><a href="#create" data-toggle="tab">Genel Ayarlar</a></li>
             <li><a href="#siralama" data-toggle="tab">Görevlendirme Sıralama Ayarları</a></li>
+            <li><a href="#kurum" data-toggle="tab">Kurum Bilgileri</a></li>
         </ul>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane active" id="create">
@@ -81,42 +82,57 @@ Aşağıdaki satır sayfaya eklenir:
                 </div>
                 @using (Html.BeginForm("SiralamaGuncelle", "Setting", FormMethod.Post, new { id = "settingform", @class = "pageform form-horizontal" }))
                 {
-                <div class="control-group">
-                    <label class="control-label" style="width: 230px; margin-top: 0; text-align: left;">İlk Sıralama</label>
-                    <div class="controls">
-                        @Html.DropDownListFor(m => m.GozetmenSiralama1, new[] {
+                    <div class="control-group">
+                        <label class="control-label" style="width: 230px; margin-top: 0; text-align: left;">İlk Sıralama</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.GozetmenSiralama1, new[] {
                             new SelectListItem{ Text= "Sıralama Yok", Value="0" },
                             new SelectListItem{ Text= "TC Kimlik Numarası", Value="3" },
                             new SelectListItem{ Text= "Ad Soyad", Value="2" },
                             new SelectListItem{ Text= "Kıdem", Value="4" },
                             new SelectListItem{ Text= "Görev Sayısı", Value="5" }
                          }, new { @class = "" })
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" style="width: 230px; margin-top: 0; text-align: left;">İkinci Sıralama</label>
-                    <div class="controls">
-                       @Html.DropDownListFor(m => m.GozetmenSiralama2, new[] {
+                    <div class="control-group">
+                        <label class="control-label" style="width: 230px; margin-top: 0; text-align: left;">İkinci Sıralama</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.GozetmenSiralama2, new[] {
                             new SelectListItem{ Text= "Sıralama Yok", Value="0" },
                             new SelectListItem{ Text= "TC Kimlik Numarası", Value="3" },
                             new SelectListItem{ Text= "Ad Soyad", Value="2" },
                             new SelectListItem{ Text= "Kıdem", Value="4" },
                             new SelectListItem{ Text= "Görev Sayısı", Value="5" }
                          }, new { @class = "" })
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" style="width: 230px; margin-top: 0; text-align: left;">Üçüncü Sıralama</label>
-                    <div class="controls">
-                       @Html.DropDownListFor(m => m.GozetmenSiralama3, new[] {
+                    <div class="control-group">
+                        <label class="control-label" style="width: 230px; margin-top: 0; text-align: left;">Üçüncü Sıralama</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.GozetmenSiralama3, new[] {
                             new SelectListItem{ Text= "Sıralama Yok", Value="0" },
                             new SelectListItem{ Text= "TC Kimlik Numarası", Value="3" },
                             new SelectListItem{ Text= "Ad Soyad", Value="2" },
                             new SelectListItem{ Text= "Kıdem", Value="4" },
                             new SelectListItem{ Text= "Görev Sayısı", Value="5" }
                          }, new { @class = "" })
+                        </div>
                     </div>
-                </div>
+                    <div>
+                        <button class="btn btn-primary">Kaydet</button>
+                    </div>
+                }
+            </div>
+
+            <div class="tab-pane" id="kurum">
+                @using (Html.BeginForm("KurumGuncelle", "Setting", FormMethod.Post, new { id = "settingform", @class = "pageform form-horizontal" }))
+                {
+                    <div class="control-group">
+                        <label class="control-label" style="width: 120px; margin-top: 0; text-align: left;">Kurum Adı</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.KurumAdi, null, new { @class = "input-xlarge required" })
+                        </div>
+                    </div>
                     <div>
                         <button class="btn btn-primary">Kaydet</button>
                     </div>

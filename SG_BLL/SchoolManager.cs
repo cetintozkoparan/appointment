@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.Entity;
 using SG_DAL.Pattern;
 using SG_BLL.Tools;
+using System.Web;
 
 namespace SG_BLL
 {
@@ -44,6 +45,43 @@ namespace SG_BLL
                 {
                     result = new Result(SystemRess.Messages.hatali_kayit.ToString(), SystemRess.Messages.hatali_durum.ToString());
                     return result;
+                }
+            }
+        }
+
+        public static Result addSchool(HttpPostedFileBase file)
+        {
+            string path = "~/Content/files/";
+            string retval = FileManager.FileUpload(file, path);
+            if (!retval.Equals(""))
+            {
+                List<School> schools = FileManager.ReadSchoolsFromExcel(HttpContext.Current.Server.MapPath(retval));
+
+                if (SchoolManager.addSchools(schools))
+                    result = new Result(SystemRess.Messages.basarili_kayit.ToString(), SystemRess.Messages.basarili_durum.ToString());
+            }
+            else
+            {
+                result = new Result(SystemRess.Messages.hatali_kayit.ToString(), SystemRess.Messages.hatali_durum.ToString());
+            }
+            return result;
+        }
+
+        private static bool addSchools(List<School> schools)
+        {
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    var userRepository = new Repository<School>(db);
+
+                    foreach (var item in schools)
+                        userRepository.Add(item);
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
                 }
             }
         }
@@ -110,6 +148,71 @@ namespace SG_BLL
                 catch (Exception)
                 {
                     return null;
+                }
+            }
+        }
+
+
+        public static object deleteSchool(int OkulId)
+        {
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    var sch = db.School.FirstOrDefault(d => d.SchoolId == OkulId);
+
+                    Repository<School> z = new Repository<School>(db);
+                    z.Delete(sch);
+
+                    result = new Result("İşlem başarılı", SystemRess.Messages.basarili_durum.ToString());
+                    return result;
+
+                }
+                catch (Exception)
+                {
+                    result = new Result(SystemRess.Messages.hatali_kayit.ToString(), SystemRess.Messages.hatali_durum.ToString());
+                    return result;
+                }
+
+            }
+        }
+
+        public static School GetSchoolBySchoolId(int SchoolId)
+        {
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    School sc = db.School.FirstOrDefault(d => d.SchoolId == SchoolId);
+
+                    return sc;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static Result OkulGuncelle(School guncelokul)
+        {
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    var repo = new Repository<School>(db);
+                    School okul = repo.First(d => d.SchoolId == guncelokul.SchoolId);
+                    okul.MebKodu = guncelokul.MebKodu;
+                    okul.Ad = guncelokul.Ad;
+                    repo.UpdateSaveChanges();
+
+                    result = new Result("İşlem başarılı", SystemRess.Messages.basarili_durum.ToString());
+                    return result;
+                }
+                catch (Exception)
+                {
+                    result = new Result(SystemRess.Messages.hatali_kayit.ToString(), SystemRess.Messages.hatali_durum.ToString());
+                    return result;
                 }
             }
         }

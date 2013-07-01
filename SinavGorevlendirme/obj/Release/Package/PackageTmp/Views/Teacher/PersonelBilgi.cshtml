@@ -37,21 +37,21 @@
                     <div style="width: 300px; float: left; border-right: 1px solid #cbcbcb;">
                         @Html.ValidationSummary(true)
                         <label>Ad</label>
-                        @Html.TextBoxFor(m => m.user.Ad, null, new { @class = "input-xlarge required" })
+                        @Html.TextBoxFor(m => m.user.Ad, null, new { @class = "input-xlarge required", @disabled="disabled" })
+                        @Html.HiddenFor(m => m.user.Ad)
 
                         <label>Soyad</label>
-                        @Html.TextBoxFor(m => m.user.Soyad, null, new { @class = "input-xlarge required" })
+                        @Html.TextBoxFor(m => m.user.Soyad, null, new { @class = "input-xlarge required", @disabled="disabled" })
+                        @Html.HiddenFor(m => m.user.Soyad)
 
                         <label>TC Kimlik No</label>
-                        @Html.TextBoxFor(m => m.user.TCKimlik, null, new { @class = "input-xlarge required" })
-
+                        @Html.TextBoxFor(m => m.user.TCKimlik, null, new { @class = "input-xlarge required", @disabled="disabled" })
+                        @Html.HiddenFor(m => m.user.TCKimlik)
                         <label>Eposta</label>
                         @Html.TextBoxFor(m => m.user.Email, null, new { @class = "input-xlarge" })
 
                         <label>Telefon</label>
                         @Html.TextBoxFor(m => m.user.Tel, null, new { @class = "input-xlarge" })
-
-
                     </div>
                     <div style="width: 300px; float: left; padding-left: 20px; height: 100%; border-right: 1px solid #dedede; height: 350px">
                         <label>Okul</label>
@@ -71,6 +71,8 @@
                         <label>Ünvan</label>
                         @*@Html.DropDownListFor(d => d.teacher.Unvan, (IEnumerable<SelectListItem>)ViewBag.UnvanList, null, new { @class = "required", @id="ddlUnvan" })*@
                         <span>@ViewBag.Unvan</span>
+                        @Html.HiddenFor(d => d.teacher.Unvan)
+
                         <div style="display: none; margin-top: 20px" class="control-group">
                             <label class="control-label" style="width: 230px; margin-top: 0; text-align: left;">Genel Başvuru Havuzuna Ekle</label>
                             <div class="controls">

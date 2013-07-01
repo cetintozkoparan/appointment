@@ -73,6 +73,12 @@ namespace SinavGorevlendirme.Controllers
         }
 
         [HttpPost]
+        public ActionResult Basvur(int SinavOturumId)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
         public JsonResult GorevdenCikar(int tchID, int snOturumID)
         {
             return Json(SinavManager.GorevdenCikar(tchID, snOturumID));
@@ -82,6 +88,12 @@ namespace SinavGorevlendirme.Controllers
         {
             SinavManager.SinavOturumDurumGuncelle(snvOturmId, ddlSinavDurum);
             return RedirectToAction("SinavGorevlendirme", new { SinavOturumId = snvOturmId });
+        }
+
+        public ActionResult YayinDurumuGuncelle(int ddlOturum)
+        {
+            SinavManager.SinavOturumYayinDurumGuncelle(ddlOturum);
+            return RedirectToAction("SinavGorevlendirme", new { SinavOturumId = ddlOturum });
         }
 
         public ActionResult SinavGorevlendirme(int SinavOturumId)
@@ -199,6 +211,11 @@ namespace SinavGorevlendirme.Controllers
             {
                 items.Add(new SinavDurumHelper((int)enmDurum, rm.GetString(enmDurum.ToString()), ""));
             }
+            //HttpCookie myCookie = new HttpCookie("LoginCookie");
+            //myCookie = Request.Cookies["LoginCookie"];
+            //Int64 tcno = Convert.ToInt64(myCookie.Value.Split('=')[1].ToString());
+            //Teacher tck = TeacherManager.GetTeacherByTCNo(tcno);
+
 
             if (RouteData.Values["DurumId"] != null)
             {
@@ -208,7 +225,7 @@ namespace SinavGorevlendirme.Controllers
 
                 oturumlar = SinavManager.SinavListe(Convert.ToInt32(RouteData.Values["DurumId"].ToString()));
 
-                var sinavlist = new SinavListeWrapperModel(new List<Sinav>(), oturumlar);
+                var sinavlist = new SinavListeWrapperModel(new List<Sinav>(), oturumlar, SettingManager.GetSettings(), new List<SinavOturum>(), new List<SinavOturum>());
                 return View(sinavlist);
             }
             else
@@ -220,7 +237,7 @@ namespace SinavGorevlendirme.Controllers
 
                 oturumlar = SinavManager.SinavListe();
 
-                var sinavlist = new SinavListeWrapperModel(new List<Sinav>(), oturumlar);
+                var sinavlist = new SinavListeWrapperModel(new List<Sinav>(), oturumlar, SettingManager.GetSettings(), new List<SinavOturum>(), new List<SinavOturum>());
                 return View(sinavlist);
             }
 
@@ -237,7 +254,7 @@ namespace SinavGorevlendirme.Controllers
             var oturumlar = new List<SinavOturum>();
             oturumlar = SinavManager.SinavListe((int)SG_DAL.Enums.EnumSinavDurum.OnaylanmisSinav);
 
-            var sinavlist = new SinavListeWrapperModel(new List<Sinav>(), oturumlar);
+            var sinavlist = new SinavListeWrapperModel(new List<Sinav>(), oturumlar, SettingManager.GetSettings(), new List<SinavOturum>(), new List<SinavOturum>());
             return View(sinavlist);
         }
 

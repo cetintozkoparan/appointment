@@ -33,11 +33,39 @@ namespace SinavGorevlendirme.Controllers
             return RedirectToAction("Create");
         }
 
+        [HttpGet]
+        public ActionResult OkulGuncelle(int SchoolId)
+        {
+            School sch = SchoolManager.GetSchoolBySchoolId(SchoolId);
+            return View(sch);
+        }
+
+        [HttpPost]
+        public ActionResult OkulGuncelle(School okul)
+        {
+            TempData["EventResult"] = SchoolManager.OkulGuncelle(okul);
+            return RedirectToAction("Create");
+        }
+
         public ActionResult SchoolList()
         {
             List<School> sc = SchoolManager.GetSchools();
             return View(sc);
         }
 
+        [HttpPost]
+        public ActionResult MultiCreateSchool(HttpPostedFileBase uploadfile)
+        {
+            TempData["EventResult"] = SchoolManager.addSchool(uploadfile);
+
+            return RedirectToAction("Create");
+        }
+
+        public ActionResult OkulSil(int OkulId)
+        {
+            TempData["EventResult"] = SchoolManager.deleteSchool(OkulId);
+
+            return RedirectToAction("Create", "School");
+        }
     }
 }

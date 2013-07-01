@@ -79,5 +79,28 @@ namespace SG_BLL
                 }
             }
         }
+
+        public static object UpdateKurumAdi(Setting newsettings)
+        {
+            using (SGContext db = new SGContext())
+            {
+                try
+                {
+                    var settings = db.Setting.First();
+
+                    settings.KurumAdi = newsettings.KurumAdi;
+                    db.SaveChanges();
+
+                    result = new Result(SystemRess.Messages.basarili_kayit.ToString(), SystemRess.Messages.basarili_durum.ToString());
+                    return result;
+
+                }
+                catch (Exception)
+                {
+                    result = new Result(SystemRess.Messages.hatali_kayit.ToString(), SystemRess.Messages.hatali_durum.ToString());
+                    return result;
+                }
+            }
+        }
     }
 }

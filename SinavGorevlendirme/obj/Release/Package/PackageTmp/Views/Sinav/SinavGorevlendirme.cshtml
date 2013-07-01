@@ -371,7 +371,20 @@
 <div class="panel" style="float: right; width: 42%; height: 200px; margin-right: -10px;">
     <div class="panel-heading"><span>Oturumlar & Sınav Durumu</span></div>
     <label>Oturum Seçiniz</label>
-    @Html.DropDownList("ddlOturum", (IEnumerable<SelectListItem>)ViewBag.OturumList)
+    @using (Html.BeginForm("YayinDurumuGuncelle", "Sinav", FormMethod.Post, new { id = "registerform", @class = "" }))
+    {
+        @Html.DropDownList("ddlOturum", (IEnumerable<SelectListItem>)ViewBag.OturumList)
+        
+        if(Model.oturum.Yayinda)
+        {
+            <input type="submit" class="btn btn-success" style="margin-top: -10px; margin-left: 20px;" value="         Sınav Yayında         " />
+        }
+        else
+        {
+            <input type="submit" class="btn btn-danger" style="margin-top: -10px; margin-left: 20px;" value="     Sınav Yayında Değil     " />                
+        }
+    }
+    
     <label>Sınav Durumu</label>
 
     @using (Html.BeginForm("DurumGuncelle", "Sinav", FormMethod.Post, new { id = "registerform", @class = "" }))
@@ -389,7 +402,7 @@
     {   
         <input type="hidden" name="snvOturmId" value="@Model.oturum.SinavOturumId" />
             
-        <div class="panel" style="float: left; width: 50%; min-height: 458px;">
+        <div class="panel" style="float: left; width: 50%; min-height: 464px;">
             <div class="panel-heading">Gözetmenler</div>
 
             <a data-toggle="modal" data-target="#ogtSec" href="#ogtSec" class="btn btn-primary btn-block" onclick="$(this).Ogretmenler();">Listeye Öğretmen Ekle <i class="fam-add"></i></a>
@@ -566,19 +579,18 @@
 
         </div>
     }
+    
     <div class="panel" style="float: right; width: 42%; min-height: 458px; margin-right: 5px;">
         <div class="panel-heading">Raporlar</div>
         <label>Görevlendirme Raporu</label>
         @using (Html.BeginForm("PrintSinavGorevlendirme", "Report", FormMethod.Post))
         {   
             <input type="hidden" value="@Model.oturum.SinavOturumId" name="SinavOturumId" />
-            
             <select name="reportType" class="selectpicker">
                 <option value="pdf">PDF</option>
                 <option value="excel">EXCEL</option>
             </select>
             <button class="btn btn-primary">Rapor Al</button>
-@*<input type="button" name="btnRapor" value="Rapor Al" class="btn btn-primary" />*@
         }
     </div>
 

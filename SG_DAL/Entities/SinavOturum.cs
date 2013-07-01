@@ -32,5 +32,6 @@ namespace SG_DAL.Entities
         public Sinav Sinav { get; set; }
 
         public int SinavOturumDurumId { get; set; }
+        public bool Yayinda { get; set; }
     }
 }

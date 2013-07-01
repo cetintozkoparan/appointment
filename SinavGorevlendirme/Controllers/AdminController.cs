@@ -29,7 +29,8 @@ namespace SinavGorevlendirme.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("login", "yonetim");
+            TempData["GirisBasarisiz"] = null;
+            return RedirectToAction("Index", "Home");
         }
         
         [HttpPost]
@@ -37,9 +38,10 @@ namespace SinavGorevlendirme.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (AccountManager.Login(user.TCKimlik, user.Sifre, true))
+                User us = AccountManager.Login(user.TCKimlik, user.Sifre);
+                if (us != null)
                 {
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("SinavListe", "Sinav");
                 }
                 else
                 {

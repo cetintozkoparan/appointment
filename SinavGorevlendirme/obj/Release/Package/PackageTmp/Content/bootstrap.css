@@ -228,6 +228,8 @@ body {
   line-height: 20px;
   color: #555555;
   background-color: #f5f5f5;
+  background-image: url('/Content/images/banner_Back.jpg');
+  background-repeat: repeat-x;
 }
 
 a {
@@ -743,7 +745,8 @@ h6 {
   font-weight: bold;
   line-height: 20px;
   color: inherit;
-  text-rendering: optimizelegibility;
+  font-family: 'Inder', sans-serif;
+  /*text-rendering: optimizelegibility;*/
 }
 
 h1 small,
@@ -3890,7 +3893,7 @@ input[type="submit"].btn.btn-mini {
   margin-bottom: 20px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #fcf8e3;
-  border: 1px solid #fbeed5;
+  border: 1px solid #c8bba2;
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
           border-radius: 4px;
@@ -3898,7 +3901,7 @@ input[type="submit"].btn.btn-mini {
 
 .alert,
 .alert h4 {
-  color: #c09853;
+  color: #976733;
 }
 
 .alert h4 {
@@ -3937,7 +3940,7 @@ input[type="submit"].btn.btn-mini {
 .alert-info {
   color: #3a87ad;
   background-color: #d9edf7;
-  border-color: #bce8f1;
+  border-color: #9ac6ce;
 }
 
 .alert-info h4 {
@@ -4086,6 +4089,10 @@ input[type="submit"].btn.btn-mini {
   -webkit-border-radius: 4px 4px 0 0;
      -moz-border-radius: 4px 4px 0 0;
           border-radius: 4px 4px 0 0;
+  background-color: #ffffff;
+  color: #555555;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
 }
 
 .nav-tabs > li > a:hover,
@@ -4095,7 +4102,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .nav-pages > li > a{
-    background-color:#134c7c;
+    /*background-color:#134c7c;*/
 }
 .nav-pages > li > a:hover,
 .nav-pages > li > a:focus {
@@ -4110,9 +4117,9 @@ input[type="submit"].btn.btn-mini {
 .nav-tabs > .active > a:focus {
   color: #555555;
   cursor: default;
-  background-color: #ffffff;
+  background-color: #ddd;
   border: 1px solid #ddd;
-  border-bottom-color: transparent;
+  border-bottom-color: #134c7c;
 }
 
 .nav-pills > li > a {
@@ -5275,6 +5282,7 @@ input[type="submit"].btn.btn-mini {
   /*max-height: 400px;*/
   padding: 15px;
   overflow-y: auto;
+  background-color: #fff;
 }
 
 .modal-form {

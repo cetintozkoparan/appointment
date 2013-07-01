@@ -12,6 +12,7 @@
     <link href="~/Content/prettify.css" rel="stylesheet" />
     <link href="~/Content/jquery.tablesorter.pager.css" rel="stylesheet" />
     <link href="~/Content/theme.bootstrap.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Inder' rel='stylesheet' type='text/css'>
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
@@ -49,11 +50,18 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
     <div class="container">
-        <h1 style="color: #134c7c">Sınav Görevlendirme Sistemi</h1>
+        <div id="ustBannerSarmala">
+        <div id="logo"><a href="http://www.meb.gov.tr/"><img src="http://www.meb.gov.tr/www/images/logo_Meb.png" border="0"></a></div>
+        <div id="sayfaBaslikYazi">T.C. <br>
+          MİLLÎ EĞİTİM BAKANLIĞI
+          <div id="kurumYazi">@{ Html.RenderAction("_kurumadi","Home");  }</div>
+        </div>
+         <div style="float:right; margin-right:10px;"><span style="color:#fff; font-family: 'Inder', sans-serif; font-size:2em;line-height: 3.5em; font-weight:bold">SINAV GÖREVLENDİRME SİSTEMİ</span></div>
+      </div>
     </div>
     <div class="container main">
 
-        <ul class="nav nav-tabs" role="navigation" style="background-color: #134c7c; padding: 5px;">
+        <ul class="nav nav-tabs" role="navigation" style="padding: 5px; border-bottom:none">
 
             @if (HttpContext.Current.User.Identity.IsAuthenticated)
             {
@@ -63,7 +71,7 @@
             }
             else
             {
-                <li class="dropdown pull-right">
+                <li class="dropdown pull-right" style="display:none">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">Şifemi Unuttum <strong class="caret"></strong></a>
                     <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
                         @using (Html.BeginForm("SifraHatirlat", "Account", FormMethod.Post, new { id = "registerform", @class = "pageform form-horizontal" }))
@@ -79,8 +87,12 @@
                     <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
                         @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "registerform", @class = "pageform form-horizontal" }))
                         {
+                            <!--[if IE 7]><label style="margin:0; font-wight:bold">Kullanıcı Adı</label><![endif]-->
+                            <!--[if IE 8]><label style="margin:0; font-wight:bold">Kullanıcı Adı</label><![endif]-->
                             <!--[if IE 9]><label style="margin:0; font-wight:bold">Kullanıcı Adı</label><![endif]-->
-                            <input style="margin-bottom: 15px;" type="text" placeholder="TC Kimlik No" id="tcno" name="TCKimlik">
+                            <input style="margin-bottom: 15px;" type="text" placeholder="TC Kimlik No" id="tcno" name="TCKimlik" maxlength="11">
+                            <!--[if IE 7]><label style="margin:0; font-wight:bold">Şifre</label><![endif]-->
+                            <!--[if IE 8]><label style="margin:0; font-wight:bold">Şifre</label><![endif]-->
                             <!--[if IE 9]><label style="margin:0; font-wight:bold">Şifre</label><![endif]-->
                             <input style="margin-bottom: 15px;" type="password" placeholder="Şifre" id="sifre" name="Sifre">
                             <input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Giriş">

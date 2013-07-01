@@ -13,12 +13,12 @@ namespace SG_BLL
 {
     public class AccountManager
     {
-        public static bool Login(Int64 tckimlikno, string password, bool isadmin)
+        public static User Login(Int64 tckimlikno, string password)
         {
             using (SGContext db = new SGContext())
             {
                 var userRepository = new Repository<User>(db);
-                var us = userRepository.Find(d => d.TCKimlik == tckimlikno && d.Sifre == password && d.IsAdmin == isadmin);
+                var us = userRepository.Find(d => d.TCKimlik == tckimlikno && d.Sifre == password);
 
                 if (us.Count() > 0)
                 {
@@ -36,10 +36,10 @@ namespace SG_BLL
                     myCookie.Expires = DateTime.Now.AddDays(1d);
                     HttpContext.Current.Response.Cookies.Add(myCookie);
 
-                    return true;
+                    return us.FirstOrDefault();
                 }
                 else
-                    return false;
+                    return null;
 
             }
 

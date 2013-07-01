@@ -3,17 +3,18 @@
     ViewBag.Title = "School";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+        
 <div class="modal-header">
     <h3>Okul Kaydı</h3>
 </div>
 <div class="modal-body">
     <div class="well">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs nav-pages" id="ogrtab">
             <li class="active"><a href="#create" data-toggle="tab">Okul Kaydet</a></li>
+            <li><a href="#multicreate" data-toggle="tab">Excel'den Okul Kaydet</a></li>
         </ul>
         <div id="myTabContent" class="tab-content">
-            <div class="tab-pane active" id="create">
+            <div class="tab-pane active" id="create" style="border:1px solid #dedede; overflow:hidden; padding:10px 20px 10px 20px">
 
                 @using (Html.BeginForm("Create", "School", FormMethod.Post, new { id = "registerform", @class = "pageform" }))
                 {
@@ -29,6 +30,29 @@
                     <div>
                         <button class="btn btn-primary">Kaydet</button>
                     </div>
+                }
+            </div>
+
+            <div class="tab-pane" id="multicreate">
+
+                @using (Html.BeginForm("MultiCreateSchool", "School", FormMethod.Post, new { enctype = "multipart/form-data", id = "registerform2", @class = "pageform" }))
+                {
+                    <span>
+                        <a href="~/Content/files/Sablonlar/ornek_okul_sablon.xls">
+                            <img src="~/Content/images/icons/xls.png" />
+                            Örnek Excel şablonunu indirmek için tıklayınız</a></span>
+                    <br />
+                    <br />
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <div class="input-append">
+                            <div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i><span class="fileupload-preview"></span></div>
+                            <span class="btn btn-file"><span class="fileupload-new">Excel Dosyası Seçiniz</span><span class="fileupload-exists">Değiştir</span>
+                                <input type="file" name="uploadfile" id="uploadfile" />
+                            </span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Kaldır</a>
+                        </div>
+                    </div>
+                    
+                    <input type="submit" class="btn btn-primary" value="Kaydet" name="btnXlsGonder" id="btnXlsGonder" />
                 }
             </div>
         </div>
@@ -59,6 +83,8 @@
                     </th>
                     <th>MEB Kodu
                     </th>
+                    <th style="width:10px;" class="filter-false"></th>
+                    <th style="width:10px;" class="filter-false"></th>
                 </tr>
             </thead>
             <tbody>
@@ -71,6 +97,18 @@
                         </td>
                         <td>@item.MebKodu
                         </td>
+                        <td>
+                            <a href="/yonetim/okul/@item.SchoolId">Güncelle</a>    
+                        </td>
+                         <td>
+                        @Ajax.ActionLink("Sil", "OkulSil", new { OkulId = @item.SchoolId }, new AjaxOptions
+                                       {
+                                           HttpMethod = "POST",
+                                           UpdateTargetId = "divResultText",
+                                           LoadingElementId = "divLoading",
+                                           OnSuccess = "myCallback"
+                                       }, new {  })
+                </td>
                     </tr>    
                 }
 
